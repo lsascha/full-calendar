@@ -1,6 +1,9 @@
 {
     "description": "full calendar (fullcalendar.io) implementation package for Flow / Neos",
+    "license": "MIT",
     "type": "neos-package",
+    "keywords": ["neos","flow","calendar"],
+    "homepage": "https://github.com/lsascha/full-calendar/",
     "require": {
         "typo3/flow": "*"
     },
@@ -14,5 +17,12 @@
         "neos": {
             "package-key": "Lsascha.FullCalendar"
         }
-    }
+    },
+    "authors": [
+        {
+            "name": "Sascha Löffler",
+            "email": "lsascha@gmail.com",
+            "role": "Developer"
+        }
+    ],
 }
