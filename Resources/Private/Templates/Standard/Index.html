@@ -1,0 +1,114 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+
+    <f:render partial="../Templates/Standard/Partials/Scripts/Styles" />
+    <f:render partial="../Templates/Standard/Partials/Scripts/Moment" />
+    <f:render partial="../Templates/Standard/Partials/Scripts/Jquery" />
+    <f:render partial="../Templates/Standard/Partials/Scripts/Main" />
+    <f:render partial="../Templates/Standard/Partials/Scripts/CalendarLanguage" arguments="{lang:settings.language}" />
+
+	<div id='loading'>loading...</div>
+
+    <div id="calendar"></div>
+
+	<script type="text/javascript">
+	<![CDATA[
+		jQuery(document).ready(function() {
+	    	jQuery('#calendar').fullCalendar({
+    		]]>
+            	lang: '{language}',
+
+            	<![CDATA[
+				header: {
+				]]>
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				<![CDATA[
+				},
+				]]>
+				<f:if condition="{settings.googleCalendarApiKey}">
+				googleCalendarApiKey: '{settings.googleCalendarApiKey}',
+				</f:if>
+
+				editable: false,
+				weekNumbers: true,
+				eventLimit: true, // allow "more" link when too many events
+			    eventSources: [
+			    	<f:for each="{eventSources}" as="eventSource">
+			    	<![CDATA[
+			        {
+		        	]]>
+			        	<f:if condition="{eventSource.googleCalendarId}">
+			        	<f:then>
+			        	googleCalendarId: '{eventSource.googleCalendarId}',
+			        	</f:then>
+			        	<f:else>
+				            url: "{f:uri.action(action:'index', controller:'EventSource', format:'json')}", // use the `url` property
+	            			type: 'POST',
+
+	            			<![CDATA[
+				            data: {
+			            	]]>
+				                eventSource: '{eventSource -> f:format.identifier()}'
+				            <![CDATA[
+				            },
+				            ]]>
+
+				            <![CDATA[
+				            error: function() {
+				                console.log('there was an error while fetching events!');
+				            },
+				            ]]>
+			        	</f:else>
+			        	</f:if>
+			            color: '{eventSource.color}',   // a non-ajax option
+			            textColor: '{eventSource.textColor}', // a non-ajax option
+			            backgroundColor: '{eventSource.backgroundColor}', // a non-ajax option
+			            rendering: '{eventSource.rendering}' // a non-ajax option
+			        <![CDATA[
+			        },
+			        ]]>
+			    	</f:for>
+			    ],
+			    <![CDATA[
+				loading: function(bool) {
+					jQuery('#loading').toggle(bool);
+				}
+				]]>
+
+			<![CDATA[
+			});
+			]]>
+
+		<![CDATA[
+		});
+		]]>
+    
+    </script>
+	<style>
+
+		body {
+			margin: 40px 10px;
+			padding: 0;
+			font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+			font-size: 14px;
+		}
+
+		#loading {
+			display: none;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		#calendar {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+	</style>
+
+
+</f:section>

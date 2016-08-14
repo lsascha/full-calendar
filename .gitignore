@@ -1,0 +1,5 @@
+sftp-config.json
+sftp-config-alt.json
+*.sublime-project
+*.sublime-workspace
+.phpintel

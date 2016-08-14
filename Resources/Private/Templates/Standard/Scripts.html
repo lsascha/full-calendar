@@ -1,0 +1,35 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<f:section name="calendarCss">
+		    <f:render partial="Scripts/Styles" />
+		</f:section>
+		<f:section name="calendarJSJqRequirement">
+		    <f:render partial="Scripts/Moment" />
+		</f:section>
+		<f:section name="calendarJSJquery">
+	    	<f:render partial="Scripts/Jquery" />
+		</f:section>
+		<f:section name="calendarJSmain">
+		    <f:render partial="Scripts/Main" />
+		</f:section>
+		<f:section name="calendarJSlang">
+		    <f:render partial="Scripts/CalendarLanguage" arguments="{lang:lang}" />
+		</f:section>
+		<f:section name="calendarInit">
+		    <script type="text/javascript">
+				jQuery(document).ready(function() {
+					if (typeof calendarInits !== 'undefined') {
+						for (i = 0; i < calendarInits.length; i++) {
+							calendarInits[i]();
+						}
+					}
+				});
+		    </script>
+		</f:section>
+	</head>
+	<body>
+	</body>
+</html>

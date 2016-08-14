@@ -1,0 +1,34 @@
+Lsascha:
+  FullCalendar:
+    # module widget setup
+    moduleConfiguration:
+      widgetTemplatePathAndFileName: 'resource://TYPO3.Neos/Private/Templates/Module/Widget.html'
+      
+    # Calendar plugin configuration
+    googleCalendarApiKey: ~
+    language: 'all'
+
+
+
+# Backend modules configuration
+TYPO3:
+  Neos:
+
+    typoScript:
+      autoInclude:
+        'Lsascha.FullCalendar': TRUE
+
+    modules:
+      calendarAdministration:
+        label: 'Calendar Administration'
+        controller: '\Lsascha\FullCalendar\Controller\Module\CalendarAdministrationController'
+        description: 'administrate calendars'
+        icon: 'icon-calendar'
+        privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+        submodules:
+          lsaschaCalendarManagement:
+            label: 'Calendar Management'
+            icon: 'icon-calendar'
+            controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
+            description: 'Provides administration tools for maintaining calendars.'
+            privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'

@@ -1,0 +1,63 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+<f:layout name="BackendSubModule"/>
+
+<f:section name="content">
+    <f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}"/>
+    
+    <div class="neos-row-fluid">
+        <table class="neos-table">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Events</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <f:for each="{eventSources}" key="index" as="eventSource" iteration="eventSourceIterator">
+                <tr>
+                    <td style="{f:if(condition: eventSource.backgroundColor, then: 'background-color:{eventSource.backgroundColor};')} {f:if(condition: eventSource.textColor, then: 'color:{eventSource.textColor};')} width:5px;"># {eventSourceIterator.cycle}</td>
+                    <td><div title="{eventSource->f:format.identifier()}" data-neos-toggle="tooltip" data-placement="top">{eventSource.title}</div></td>
+                    <td>{f:if(condition: eventSource.googleCalendarId, then: eventSource.googleCalendarId, else: '{eventSource.events -> f:count()}' )}</td>
+                    <td class="neos-action">
+                        <div class="neos-pull-right">
+                            <f:link.action action="edit" arguments="{eventSource: eventSource}" class="neos-button neos-button-primary" title="Edit this Calendar" data="{neos-toggle:'tooltip', placement:'top'}" >
+                                <i class="icon-edit icon-white"></i> Edit
+                            </f:link.action>
+
+                            <button type="button" class="neos-button neos-button-danger" title="Delete this Calendar" data-toggle="modal" href="#calendarEventSource-{index}">
+                                <i class="icon-trash icon-white"></i> Delete
+                            </button>
+                            <div class="neos-hide" id="calendarEventSource-{index}">
+                                <div class="neos-modal-centered">
+                                    <div class="neos-modal-content">
+                                        <div class="neos-modal-header">
+                                            <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                                            <div class="neos-header">Do you really want to delete Calendar "{eventSource.title}"?</div>
+                                        </div>
+                                        <div class="neos-modal-footer">
+                                            <a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+                                            <f:form class="neos-inline" action="delete" arguments="{eventSource: eventSource}">
+                                                <button type="submit" class="neos-button neos-button-danger" title="Delete Calendar">Yes, delete Calendar</button>
+                                            </f:form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="neos-modal-backdrop neos-in"></div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+        <!-- <p class="neos-help-inline"><i class="icon-info"></i> Please note that having to flush the content caches manually usually is a sign of improper configuration. <a href="neos.readthedocs.org/en/stable/CreatingASite/ContentCache.html">More about this</a></p> -->
+    </div>
+
+    <div class="neos-footer">
+        <f:link.action action="new" class="neos-button neos-button-primary" title="Create new Calendar">
+            <i class="icon-calendar-plus-o icon-white"></i>
+            Create new Calendar
+        </f:link.action>
+    </div>
+</f:section>

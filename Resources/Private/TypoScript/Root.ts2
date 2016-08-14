@@ -1,0 +1,8 @@
+prototype(Lsascha.FullCalendar:Calendar) < prototype(TYPO3.Neos:Plugin)
+prototype(Lsascha.FullCalendar:Calendar) {
+	package = 'Lsascha.FullCalendar'
+	controller = 'Standard'
+	action = 'pluginIndex'
+}
+
+include: Scripts.ts2

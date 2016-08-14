@@ -1,0 +1,15 @@
+-
+  name: 'calendar-source'
+  uriPattern: 'calendar/cal.{@format}'
+  defaults:
+    '@package':    'Lsascha.FullCalendar'
+    '@controller': 'EventSource'
+    '@action':     'index'
+
+-
+  name: 'calendar-html'
+  uriPattern: 'calendar.{@format}'
+  defaults:
+    '@package':    'Lsascha.FullCalendar'
+    '@controller': 'Standard'
+    '@action':     'index'

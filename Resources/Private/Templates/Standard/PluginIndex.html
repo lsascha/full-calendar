@@ -1,0 +1,120 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+
+<f:layout name="Empty" />
+
+<f:section name="Content">
+
+	<div id="loading-{identifier}" class="lsaschafullcalendarloading">loading...</div>
+
+    <div id="calendar-{identifier}" class="lsaschafullcalendar"><f:if condition="{neos:rendering.inBackend(node:node)}">full calendar plugin</f:if></div>
+
+	<f:if condition="{neos:rendering.live(node:node)}">
+		<script type="text/javascript">
+		<![CDATA[
+
+		if (typeof calendarInits === 'undefined') {
+			calendarInits = [];
+		}
+
+		calendarInits.push(function() {
+
+			]]>
+			var idIdentifier = '{identifier}';
+			<![CDATA[
+
+	    	jQuery('#calendar-'+idIdentifier).fullCalendar({
+			]]>
+	        	lang: '{language}',
+
+	        	<![CDATA[
+				header: {
+				]]>
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				<![CDATA[
+				},
+				]]>
+				<f:if condition="{settings.googleCalendarApiKey}">
+				googleCalendarApiKey: '{settings.googleCalendarApiKey}',
+				</f:if>
+
+				editable: false,
+				weekNumbers: true,
+				eventLimit: true, // allow "more" link when too many events
+			    eventSources: [
+			    	<f:for each="{eventSources}" as="eventSource">
+			    	<![CDATA[
+			        {
+		        	]]>
+			        	<f:if condition="{eventSource.googleCalendarId}">
+			        	<f:then>
+			        	googleCalendarId: '{eventSource.googleCalendarId}',
+			        	</f:then>
+			        	<f:else>
+				            url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
+	            			type: 'POST',
+
+	            			<![CDATA[
+				            data: {
+			            	]]>
+				                eventSource: '{eventSource -> f:format.identifier()}'
+				            <![CDATA[
+				            },
+				            ]]>
+
+				            <![CDATA[
+				            error: function() {
+				                console.log('there was an error while fetching events!');
+				            },
+				            ]]>
+			        	</f:else>
+			        	</f:if>
+			            color: '{eventSource.color}',   // a non-ajax option
+			            textColor: '{eventSource.textColor}', // a non-ajax option
+			            backgroundColor: '{eventSource.backgroundColor}', // a non-ajax option
+			            rendering: '{eventSource.rendering}' // a non-ajax option
+			        <![CDATA[
+			        },
+			        ]]>
+			    	</f:for>
+			    ],
+			    <![CDATA[
+				loading: function(bool) {
+					jQuery('#loading-'+idIdentifier).toggle(bool);
+				}
+				]]>
+
+			<![CDATA[
+			});
+			]]>
+
+		<![CDATA[
+		});
+		]]>
+
+	    </script>
+    </f:if>
+
+
+	<style>
+		.lsaschafullcalendarloading {
+			display: none;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+	</style>
+
+
+	<f:if condition="{neos:rendering.inBackend(node:node)}">
+		<style type="text/css">
+			.lsaschafullcalendar {
+			    width: 100%;
+			    height: 200px;
+			}
+		</style>
+	</f:if>
+
+
+</f:section>

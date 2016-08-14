@@ -1,0 +1,28 @@
+# Full Calendar plugin
+'Lsascha.FullCalendar:Calendar':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Full Calendar'
+    icon: 'icon-calendar'
+    group: 'plugins'
+    inspector:
+      groups:
+        'options':
+          label: 'Options'
+          icon: 'icon-calendar'
+  properties:
+    'sources':
+      type: array
+      ui:
+        label: 'Event Sources'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'options'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            allowEmpty: TRUE
+            multiple: TRUE
+            placeholder: 'Select Event Sources'
+
+            dataSourceIdentifier: 'lsascha-fullcalendar-eventsources'

@@ -1,0 +1,537 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+<f:layout name="BackendSubModule"/>
+
+<f:section name="content">
+    <h2>Edit Calendar "{eventSource.title}"</h2>
+
+    <div class="neos-row-fluid">
+        <legend>Object Identifier</legend>
+        <p>{eventSource -> f:format.identifier()}</p>
+    </div>
+
+    <f:form action="update" object="{eventSource}" objectName="eventSource">
+
+        <div class="neos-row-fluid">
+            <f:render partial="Module/Administration/CalendarManagement/EventSource/GeneralFields" />
+            <f:render partial="Module/Administration/CalendarManagement/EventSource/ColorFields" arguments="{offset: 1}" />
+        </div>
+        <div class="neos-row-fluid">
+            <f:if condition="{eventSource.googleCalendarId}">
+                <f:then>
+                </f:then>
+                <f:else>
+                    <div class="neos-span2">
+                        <div id="external-events">
+                            <h4>Create Event</h4>
+                            <div id="eventlist">
+                                <div class="fc-event">---</div>
+                            </div>
+                            <p class="neos-help-inline">Enter Event Name, <br />press ENTER <br />Drag &amp; Drop Event on the Calendar.</p>
+                            <div id="removeevent">
+                                <i class="icon-trash icon-white"></i>
+                                <span>&nbsp;Drop here to delete</span>
+                            </div>
+                        </div>
+                    </div>
+                </f:else>
+            </f:if>
+            <div class="neos-span10">
+                <div id='loading'>updating...</div>
+
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <div class="neos-footer">
+            <f:link.action action="index" class="neos-button" title="Cancel">
+                Cancel
+            </f:link.action>
+            <f:form.submit class="neos-button neos-button-primary" value="Save Calendar" />
+        </div>
+    </f:form>
+
+
+
+    <div class="neos-row-fluid">
+    </div>
+
+
+    <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.css')}" rel="stylesheet" />
+    <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.print.css')}" rel="stylesheet" media="print" />
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/moment.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/sl/jquery-ui.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang-all.js')}"></script>
+
+    <f:if condition="{eventSource.googleCalendarId}">
+        <f:then>
+
+            <script type="text/javascript">
+                <![CDATA[
+                    $(document).ready(function() {
+                        $('#calendar').fullCalendar({
+                            lang: 'de',
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay'
+                            },
+                            googleCalendarApiKey: ']]>{settings.googleCalendarApiKey}<![CDATA[',
+                            editable: false,
+                            weekNumbers: true,
+                            eventLimit: true, // allow "more" link when too many events
+                            eventSources: [
+                                {
+                                    googleCalendarId: ']]>{eventSource.googleCalendarId}<![CDATA[',
+                                    color: ']]>{eventSource.color}<![CDATA[',   // a non-ajax option
+                                    textColor: ']]>{eventSource.textColor}<![CDATA[', // a non-ajax option
+                                    backgroundColor: ']]>{eventSource.backgroundColor}<![CDATA[' // a non-ajax option
+                                    //rendering: ']]>{eventSource.rendering}<![CDATA[' // a non-ajax option
+                                }
+                            ],
+                            loading: function(bool) {
+                                $('#loading').toggle(bool);
+                            },
+                            eventClick: function(event, jsEvent, view) {
+                                if ( event.url ) {
+                                    window.open(event.url, "", "width=550,height=620");
+                                }
+                                return false;
+                            }
+
+                        });
+                    });
+                ]]>
+            </script>
+
+        </f:then>
+        <f:else>
+            <script type="text/javascript">
+
+            <![CDATA[
+
+            function makeDraggable(elem) {
+                $(elem).html('<input type="text" name="eventtitle" placeholder="type title + [enter]" />');
+
+                if ( $(elem).hasClass('ui-draggable') ) {
+                    $(elem).draggable( "destroy" );
+                }
+
+                $(elem).find('input').keypress(function (e) {
+                    if (e.which == 13) {
+
+                        $(this).parent().data('event', {
+                            title: $.trim($(this).val()), // use the element's text as the event title
+                            stick: false // maintain when user navigates (see docs on the renderEvent method)
+                        });
+
+                        // make the event draggable using jQuery UI
+                        $(this).parent().draggable({
+                            zIndex: 999,
+                            revert: true,      // will cause the event to go back to its
+                            revertDuration: 0,  //  original position after the drag
+                            opacity: 0.8
+                        });
+
+                        $(this).parent().html( '<div>' + $(this).val() + '</div>' );
+
+
+                        $('#eventlist').append('<div class="fc-event">---</div>');
+                        makeDraggable( $('#eventlist .fc-event:last-child') );
+                        $('#eventlist .fc-event:last-child input').focus();
+
+                        return false;    //<---- Add this line
+                    }
+                });
+            }
+
+            $('#external-events .fc-event').each(function() {
+
+                // store data so the calendar knows to render an event upon drop
+                /*$(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+                });*/
+
+                makeDraggable(this);
+
+            });
+
+            $('#removeevent').droppable({
+                accept: ".fc-event",
+                drop: function( event, ui ) {
+                    var draggable = ui.draggable;
+                    $(draggable).remove();
+                    $(this).find('.icon-white').removeClass('icon-recycle').addClass('icon-trash');
+                },
+                over: function( event, ui ) {
+                    $(this).find('.icon-white').removeClass('icon-trash').addClass('icon-recycle');
+                },
+                out: function( event, ui ) {
+                    $(this).find('.icon-white').removeClass('icon-recycle').addClass('icon-trash');
+                }
+            });
+            ]]>
+
+
+            <![CDATA[
+                $(document).ready(function() {
+                    $('#calendar').fullCalendar({
+                    ]]>
+                        lang: 'de',
+
+                        <![CDATA[
+                        header: {
+                        ]]>
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        <![CDATA[
+                        },
+                        ]]>
+
+                        /*selectable: true,
+                        selectHelper: true,
+                        select: function(start, end) {
+                            var title = prompt('Event Title:');
+                            var eventData;
+                            if (title) {
+                                eventData = {
+                                    title: title,
+                                    start: start,
+                                    end: end
+                                };
+                                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                            }
+                            $('#calendar').fullCalendar('unselect');
+                        },*/
+
+                        editable: true,
+                        droppable: true,
+                        weekNumbers: true,
+                        eventLimit: true, // allow "more" link when too many events
+
+                        <![CDATA[
+                        drop: function(date, jsEvent, ui, resourceId) {
+
+                            //makeDraggable(this);
+
+                            console.log( 'date' );
+                            console.log( date );
+                            console.log( 'date.to()' );
+                            console.log( date.to() );
+                            console.log( 'date.format(X)' );
+                            console.log( date.format('X') );
+                            console.log( 'resourceId' );
+                            console.log( resourceId );
+
+
+                            $.ajax({
+                            ]]>
+                                type: "POST",
+                                url: "{f:uri.action(action:'addEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+
+                                <![CDATA[
+                                data: {
+                                    moduleArguments: {
+                                ]]>
+                                        eventSource: '{eventSource -> f:format.identifier()}',
+                                        title: $(this).data('event').title,
+                                        allDay: !date.hasTime(),
+                                        start: '@'+date.utc().unix()
+                                    <![CDATA[
+                                    },
+                                    ]]>
+                                    __csrfToken: '{f:security.csrfToken()}'
+                                <![CDATA[
+                                },
+                                ]]>
+                                dataType: 'json',
+
+                                <![CDATA[
+                                success: function() {
+                                    console.log('fetched');
+
+                                    $('#calendar').fullCalendar( 'refetchEvents' );
+                                }
+                                ]]>
+                            <![CDATA[
+                            });
+
+                            $(this).remove();
+
+                        },
+                        eventDrop: function(event, delta, revertFunc) {
+
+                            console.log(event);
+
+                            $.ajax({
+                            ]]>
+                                type: "POST",
+                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+
+                                <![CDATA[
+                                data: {
+                                    moduleArguments: {
+                                ]]>
+                                        eventSource: '{eventSource -> f:format.identifier()}',
+                                        event: event.id,
+                                        title: event.title,
+                                        allDay: event.allDay,
+                                        start: '@'+event.start.utc().unix(),
+                                        //end: '@'+event.end.utc().unix()
+                                        end: event.end && '@'+event.end.utc().unix()
+                                    <![CDATA[
+                                    },
+                                    ]]>
+                                    __csrfToken: '{f:security.csrfToken()}'
+                                <![CDATA[
+                                },
+                                ]]>
+                                dataType: 'text',
+
+                                <![CDATA[
+                                success: function() {
+                                    console.log('fetched');
+
+                                    $('#calendar').fullCalendar( 'refetchEvents' );
+                                }
+                                ]]>
+                            <![CDATA[
+                            });
+
+                        },
+                        eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
+
+                            $.ajax({
+                            ]]>
+                                type: "POST",
+                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+
+                                <![CDATA[
+                                data: {
+                                    moduleArguments: {
+                                ]]>
+                                        eventSource: '{eventSource -> f:format.identifier()}',
+                                        event: event.id,
+                                        title: event.title,
+                                        allDay: event.allDay,
+                                        start: '@'+event.start.utc().unix(),
+                                        end: '@'+event.end.utc().unix()
+                                    <![CDATA[
+                                    },
+                                    ]]>
+                                    __csrfToken: '{f:security.csrfToken()}'
+                                <![CDATA[
+                                },
+                                ]]>
+                                dataType: 'text',
+
+                                <![CDATA[
+                                success: function() {
+                                    console.log('fetched');
+
+                                    $('#calendar').fullCalendar( 'refetchEvents' );
+                                }
+                                ]]>
+                            <![CDATA[
+                            });
+
+                        },
+                        ]]>
+
+                        <![CDATA[
+                        eventClick: function(event, jsEvent, view) {
+                        ]]>
+
+                            window.open("{f:uri.action(action:'editEventForm', controller:'CalendarManagement', package:'Lsascha.FullCalendar', useParentRequest:0)}?moduleArguments[event]="+event.id, "", "width=550,height=620");
+                            //window.open(event.id);
+                            return false;
+
+                        <![CDATA[
+                        },
+                        ]]>
+
+                        <![CDATA[
+                        dayClick: function(date, jsEvent, view) {
+                        ]]>
+
+                            <![CDATA[
+                            if (view.name == 'month')
+                            {
+                            ]]>
+                                $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+                                $('#calendar').fullCalendar( 'gotoDate', date );
+                                //alert('Clicked on: ' + date.format());
+                            
+                            <![CDATA[
+                            }
+                            ]]>
+
+                        <![CDATA[
+                        },
+                        ]]>
+
+                        eventSources: [
+                            <![CDATA[
+                            {
+                            ]]>
+                                <f:if condition="{eventSource.googleCalendarId}">
+                                <f:then>
+                                googleCalendarId: '{eventSource.googleCalendarId}',
+                                </f:then>
+                                <f:else>
+                                    url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
+                                    type: 'POST',
+                                    <![CDATA[
+                                    data: {
+                                    ]]>
+                                        eventSource: '{eventSource -> f:format.identifier()}'
+                                    <![CDATA[
+                                    },
+                                    error: function() {
+                                        console.log('there was an error while fetching events!');
+                                    },
+                                    ]]>
+                                </f:else>
+                                </f:if>
+                                color: '{eventSource.color}',   // a non-ajax option
+                                textColor: '{eventSource.textColor}', // a non-ajax option
+                                backgroundColor: '{eventSource.backgroundColor}' // a non-ajax option
+                                //rendering: '{eventSource.rendering}' // a non-ajax option
+                            <![CDATA[
+                            },
+                            ]]>
+                        ],
+
+                        <![CDATA[
+                        loading: function(bool) {
+                            $('#loading').toggle(bool);
+                        }
+                        ]]>
+
+                    <![CDATA[
+                    });
+                    ]]>
+
+                <![CDATA[
+                });
+
+                window.reloadevents = function(){
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                }
+                ]]>
+
+            </script>
+        </f:else>
+    </f:if>
+    
+
+    <style type="text/css">
+        #loading {
+            display: none;
+
+            position: fixed;
+            top: 50%;
+            right: 50%;
+            background-color: green;
+            z-index: 9;
+            padding: 20px;
+            margin: -40px;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            color: initial;
+        }
+        #calendar h2 {
+            font-size: initial;
+            line-height: 33px;
+        }
+        #calendar table td:last-child,
+        #calendar table th:last-child {
+            padding-right: 0 !important;
+        }
+        #calendar table td:first-child,
+        #calendar table th:first-child {
+            padding-left: 0 !important;
+        }
+        #calendar table td, #calendar table th {
+            padding: 0;
+            height: auto;
+
+            line-height: initial;
+        }
+        #calendar table th {
+            font-weight: bold;
+        }
+        #calendar .fc-toolbar button {
+            height: auto;
+            margin: 0;
+        }
+        #calendar .fc-toolbar button.fc-next-button {
+            border-left: 1px solid darkgrey;
+        }
+        #calendar .fc-toolbar button.fc-agendaWeek-button {
+            border-left: 1px solid darkgrey;
+            border-right: 1px solid darkgrey;
+        }
+
+
+
+        #external-events .fc-event {
+            margin: 10px 0;
+            /*padding: 10px 0;*/
+            cursor: pointer;
+        }
+        #external-events .fc-event input,
+        #external-events .fc-event div {
+            background: transparent;
+            height: 100%;
+            padding: 5px 5px;
+            border: none;
+        }
+
+        #external-events .fc-event input::-webkit-input-placeholder {
+           color: lightgrey;
+        }
+        #external-events .fc-event input:-moz-placeholder { /* Firefox 18- */
+           color: lightgrey;  
+        }
+        #external-events .fc-event input::-moz-placeholder {  /* Firefox 19+ */
+           color: lightgrey;  
+        }
+        #external-events .fc-event input:-ms-input-placeholder {  
+           color: lightgrey;  
+        }
+
+        #external-events #removeevent {
+            display: block;
+            font-size: .90em;
+            line-height: 3;
+            border-radius: 3px;
+            border: 1px solid #b71c1c;
+            background-color: #b71c1c;
+            font-weight: 400;
+
+            margin: 20px 0;
+            padding: 0 5px;
+
+        }
+        #external-events #removeevent i {
+            
+            font-size: 1.85em;
+            line-height: 0.1;
+        }
+        #external-events #removeevent span {
+            line-height: 3;
+            height: 100%;
+            margin-left: 5px;
+        }
+
+    </style>
+
+</f:section>

@@ -1,0 +1,17 @@
+<fieldset class="neos-span5 {f:if(condition:offset, then:'neos-offset1')}">
+    <legend>Options</legend>
+
+    <div class="neos-control-group">
+        <label class="neos-control-label" for="title">Title</label>
+        <div class="neos-controls">
+            <f:form.textfield property="title" id="title" class="neos-span12" />
+        </div>
+    </div>
+
+    <div class="neos-control-group">
+        <label class="neos-control-label" for="rendering">Rendering</label>
+        <div class="neos-controls">
+            <f:form.select property="rendering" id="rendering" options="{0:'Default', background:'background', inverse-background:'inverse-background' }" />
+        </div>
+    </div>
+</fieldset>
