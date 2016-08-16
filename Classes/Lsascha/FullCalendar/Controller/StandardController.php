@@ -134,13 +134,25 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
     {
         $this->view->assign( 'language', self::getLanguage() );
 
-        $sources = $this->request->getInternalArgument('__sources');
-        
         $node = $this->request->getInternalArgument('__node');
         $this->view->assign('node', $node );
+
         $this->view->assign('identifier', $node->getIdentifier() );
 
+
+        $sources = $this->request->getInternalArgument('__sources');
+        $defaultview = $this->request->getInternalArgument('__defaultview');
+        $nowindicator = $this->request->getInternalArgument('__nowindicator');
+        $headerLeft = $this->request->getInternalArgument('__headerLeft');
+        $headerCenter = $this->request->getInternalArgument('__headerCenter');
+        $headerRight = $this->request->getInternalArgument('__headerRight');
+
         $this->view->assign('eventSources', $this->eventSourceRepository->findAllByIds($sources) );
+        $this->view->assign('defaultview', $defaultview );
+        $this->view->assign('nowIndicator', $nowindicator );
+        $this->view->assign('headerLeft', $headerLeft );
+        $this->view->assign('headerCenter', $headerCenter );
+        $this->view->assign('headerRight', $headerRight );
 
         //$this->eventSourceRepository->findByIdentifier();
     }

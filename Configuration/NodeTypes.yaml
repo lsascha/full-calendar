@@ -16,7 +16,7 @@
       type: array
       ui:
         label: 'Event Sources'
-        reloadIfChanged: TRUE
+        reloadIfChanged: FALSE
         inspector:
           group: 'options'
           editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
@@ -26,3 +26,60 @@
             placeholder: 'Select Event Sources'
 
             dataSourceIdentifier: 'lsascha-fullcalendar-eventsources'
+    'defaultview':
+      type: string
+      defaultValue: 'month'
+      ui:
+        label: 'Default View'
+        reloadIfChanged: FALSE
+        inspector:
+          group: 'options'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            allowEmpty: FALSE
+            multiple: FALSE
+            placeholder: 'Calendar default view'
+            values:
+              month:
+                label: 'month'
+              agendaWeek:
+                label: 'agenda week'
+              agendaDay:
+                label: 'agenda day'
+              basicWeek:
+                label: 'basic week'
+              basicDay:
+                label: 'basic day'
+    'nowindicator':
+      type: boolean
+      ui:
+        label: 'Display Now Indicator'
+        inspector:
+          group: 'options'
+    'headerLeft':
+      type: string
+      defaultValue: 'prev,next today'
+      ui:
+        label: 'Header Left'
+        inspector:
+          group: 'options'
+          editorOptions:
+            placeholder: 'define button / title on top left'
+    'headerCenter':
+      type: string
+      defaultValue: 'prevYear title nextYear'
+      ui:
+        label: 'Header Center'
+        inspector:
+          group: 'options'
+          editorOptions:
+            placeholder: 'define button / title on top center'
+    'headerRight':
+      type: string
+      defaultValue: 'month,agendaWeek,agendaDay'
+      ui:
+        label: 'Header Right'
+        inspector:
+          group: 'options'
+          editorOptions:
+            placeholder: 'define button / title on top right'

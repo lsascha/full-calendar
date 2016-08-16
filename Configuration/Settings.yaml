@@ -8,6 +8,17 @@ Lsascha:
     googleCalendarApiKey: ~
     language: 'all'
 
+    # settings for the standalone calendar view. ( by default at http://yourdomain.com/calendar.html )
+    standaloneCalendar:
+      # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek' or 'basicDay'
+      defaultView: 'month'
+      nowIndicator: TRUE
+      # see http://fullcalendar.io/docs/display/header/ for more info
+      header:
+        left: 'prev,next today'
+        center: 'prevYear title nextYear'
+        right: 'month,agendaWeek,agendaDay'
+
 
 
 # Backend modules configuration
