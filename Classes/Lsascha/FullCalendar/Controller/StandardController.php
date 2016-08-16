@@ -122,9 +122,20 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
     {
         $this->view->assign( 'language', self::getLanguage() );
 
-        $this->view->assign('eventSources', $this->eventSourceRepository->findAllByIds($sources) );
 
-        //$this->eventSourceRepository->findByIdentifier();
+        $defaultSources = $this->settings['standaloneCalendar']['eventSources'];
+
+        if (!$defaultSources)
+        {
+            $loadSources = $sources;
+        }
+        else
+        {
+            $loadSources = $defaultSources;
+        }
+
+        $this->view->assign('eventSources', $this->eventSourceRepository->findAllByIds($loadSources) );
+
     }
 
     /**
@@ -154,7 +165,6 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
         $this->view->assign('headerCenter', $headerCenter );
         $this->view->assign('headerRight', $headerRight );
 
-        //$this->eventSourceRepository->findByIdentifier();
     }
 
 }

@@ -21,7 +21,6 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
      * @var string
      */
     protected $viewFormatToObjectNameMap = array(
-        'html' => 'TYPO3\Fluid\View\TemplateView',
         'json' => '\TYPO3\Flow\Mvc\View\JsonView'
     );
 
@@ -30,7 +29,7 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
      *
      * @var array
      */
-    protected $supportedMediaTypes = array('text/html', 'application/json');
+    protected $supportedMediaTypes = array('application/json');
 
 
     /**
@@ -54,39 +53,6 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
     public function indexAction(EventSource $eventSource, $start, $end)
     {
 
-        /*
-        if ( method_exists($this->view, 'setVariablesToRender') ) {
-            $this->view->setVariablesToRender(array('eventSource' ));
-        }
-
-        if ( method_exists($this->view, 'setConfiguration') ) {
-            $this->view->setConfiguration(
-                array(
-                    'eventSource' => array(
-                        //'_only' => array('events', 'title', 'source', 'color', 'backgroundColor', 'borderColor', 'textColor'),
-                        '_descend' => array(
-                            'events' => array(
-                                '_descendAll' => array(
-                                    //'_only' => array('title'),
-                                    '_descend' => array(
-                                        'start' => array(
-                                        ),
-                                        'end' => array(
-                                        ),
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            );
-        }
-
-
-        $this->view->assign('eventSource', $this->eventSourceRepository->findAll()->getFirst() );
-        */
-
-
         if ( method_exists($this->view, 'setVariablesToRender') ) {
             $this->view->setVariablesToRender(array('events' ));
         }
@@ -109,13 +75,9 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
             );
         }
 
-        //$startDateTime = strtotime($start);
-        //$endDateTime = strtotime($end);
         $startDateTime = new \DateTime( $start );
         $endDateTime = new \DateTime( $end );
 
-        //$this->view->assign('events', $this->eventSourceRepository->findByIdentifier($sourceid)->getEvents() );
-        //$this->view->assign('events', $this->eventRepository->findByEventSource($sourceid) );
         $this->view->assign('events', $this->eventRepository->findBetween($eventSource, $startDateTime, $endDateTime) );
 
     }

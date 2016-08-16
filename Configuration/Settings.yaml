@@ -10,6 +10,8 @@ Lsascha:
 
     # settings for the standalone calendar view. ( by default at http://yourdomain.com/calendar.html )
     standaloneCalendar:
+      # set to Object Identifiers that should be used as event sources. for example: ['aa-bb-cc-dd-ee', 'ff-gg-hh-ii-jj']
+      eventSources: ~
       # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek' or 'basicDay'
       defaultView: 'month'
       nowIndicator: TRUE
