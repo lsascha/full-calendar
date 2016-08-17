@@ -14,4 +14,60 @@
             <f:form.select property="rendering" id="rendering" options="{0:'Default', background:'background', inverse-background:'inverse-background' }" />
         </div>
     </div>
+
+    <div class="neos-control-group">
+        <label class="neos-control-label" for="link">Link</label>
+        <div class="neos-controls">
+            <f:form.textfield property="link" id="link" class="neos-span12" />
+        </div>
+    </div>
 </fieldset>
+
+<script type="text/javascript">
+<![CDATA[
+    jQuery(document).ready(function() {
+
+        /*$( "#link" ).on( "propertychange change click keyup input paste", function() {
+
+            if ( $( this ).data('oldval') != $( this ).val() ) {
+                console.log( $( this ).val() );
+            }
+
+            $( this ).data('oldval', $( this ).val() );
+        });*/
+
+
+        /*
+            TODO: call
+            /usr/share/nginx/html/Neos/Packages/Application/TYPO3.Neos/Classes/TYPO3/Neos/Controller/Service/NodesController.php
+
+         */
+
+        $( "#link" ).autocomplete({
+            source: function(request, response) {
+
+                $.ajax({
+                    async: false,
+                    method: 'POST',
+                    ]]>
+                    url: "{f:uri.action(action: 'index', controller: 'Nodes', package: 'TYPO3.Neos', format: 'json', useParentRequest:0)}",
+                    <![CDATA[
+                    data: {
+                    ]]>
+                        searchTerm: request.term,
+                        __csrfToken: '{f:security.csrfToken()}'
+                    <![CDATA[
+                    }
+                }).success(function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    response([{ label: 'Example', value: 'ex'  }]);
+                }).done(function() {
+                    //$( this ).addClass( "done" );
+                });
+
+            }
+        });
+
+    });
+]]>
+</script>

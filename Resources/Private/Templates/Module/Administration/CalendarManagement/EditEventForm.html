@@ -2,6 +2,11 @@
 <f:layout name="BackendSubModule"/>
 
 <f:section name="content">
+
+    <script type="text/javascript" src="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.js', package:'Lsascha.FullCalendar')}"></script>
+    <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
+    <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.structure.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
+
     <f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}"/>
 
     <h2>Edit Event "{event.title}"</h2>
