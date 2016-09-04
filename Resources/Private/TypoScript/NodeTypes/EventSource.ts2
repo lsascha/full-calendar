@@ -1,0 +1,11 @@
+prototype(Lsascha.FullCalendar:EventSource) >
+prototype(Lsascha.FullCalendar:EventSource) < prototype(TYPO3.Neos:Page)
+prototype(Lsascha.FullCalendar:EventSource) {
+
+	body {
+    	templatePath = 'resource://Lsascha.FullCalendar/Private/Templates/Page/EventSource.html'
+		sectionName = 'body'
+
+		events = ${q(node).children('[instanceof Lsascha.FullCalendar:Event]').get()}
+	}
+}

@@ -13,6 +13,8 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
+use TYPO3\Eel\FlowQuery\FlowQuery;
+
 
 class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 {
@@ -43,6 +45,12 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
      * @var EventRepository
      */
     protected $eventRepository;
+
+    /**
+     * @Flow\Inject
+     * @var \TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+     */
+    protected $contextFactory;
 
     /**
      * @param EventSource $eventSource
@@ -80,6 +88,68 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 
         $this->view->assign('events', $this->eventRepository->findBetween($eventSource, $startDateTime, $endDateTime) );
 
+    }
+
+
+    /**
+     * @param string $path
+     * @return void
+     */
+    public function pageEventsAction($path)
+    {
+
+        $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+        
+        $rootNode = $this->context->getNode($path);
+        
+        $q = new FlowQuery([$rootNode]);
+        $nodes = $q->children('[instanceof Lsascha.FullCalendar:Event]')->get();
+
+        $nodeArray = [];
+        foreach ($nodes as $node) {
+            $title = $node->getProperty('title');
+            $start = $node->getProperty('start');
+            $end = $node->getProperty('end');
+            $allDay = $node->getProperty('allDay');
+            $rendering = $node->getProperty('rendering');
+
+            $url = $this->uriBuilder
+                        ->reset()
+                        ->uriFor('show', array('node' => $node->getPath()), 'Frontend\Node', 'TYPO3.Neos');
+
+            $nodeArray[] = [
+                'title' => $title,
+                'start' => $start,
+                'end' => $end,
+                'allDay' => $allDay,
+                'rendering' => $rendering,
+                'url' => $url,
+            ];
+        }
+
+        if ( method_exists($this->view, 'setVariablesToRender') ) {
+            $this->view->setVariablesToRender(array('events' ));
+        }
+
+        if ( method_exists($this->view, 'setConfiguration') ) {
+            $this->view->setConfiguration(
+                array(
+                    'events' => array(
+                        '_descendAll' => array(
+                            //'_only' => array('title'),
+                            '_descend' => array(
+                                'start' => array(
+                                ),
+                                'end' => array(
+                                ),
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        $this->view->assign('events', $nodeArray );
     }
 
     /**

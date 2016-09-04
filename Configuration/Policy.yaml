@@ -1,7 +1,7 @@
 privilegeTargets:
   TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
     'Lsascha.FullCalendar:EventSourceControllerActions':
-      matcher: 'method(Lsascha\FullCalendar\Controller\(EventSource|Standard)Controller->(index|pluginIndex)Action())'
+      matcher: 'method(Lsascha\FullCalendar\Controller\(EventSource|Standard)Controller->(index|pageEvents|pluginIndex)Action())'
     'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions':
       matcher: 'method(Lsascha\FullCalendar\Controller\Module\Administration\(CalendarManagement)Controller->(index|new|create|edit|update|delete|addEvent|updateEvent|editEventForm|saveEventForm|deleteEventForm)Action()) || method(Lsascha\FullCalendar\Controller\Module\(CalendarAdministration)Controller->(index)Action())'
 

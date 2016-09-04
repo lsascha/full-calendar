@@ -1,0 +1,51 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{title}</title>
+</head>
+<body>
+	<f:section name="body">
+		<style type="text/css">
+			.event dl dt {
+				float: left;
+			}
+			.event dl dt:after {
+				content: ':';
+			}
+		</style>
+
+
+		<div class="event">
+			<h2>{title}</h2>
+			<f:if condition="{allDay}">
+				<f:then>
+					<f:if condition="{start}">
+						<dl>
+						  <dt>Time</dt>
+						  <dd><time>{start -> f:format.date(format:'d.m.Y')}</time></dd>
+						</dl>
+					</f:if>
+				</f:then>
+				<f:else>
+					<dl>
+						<f:if condition="{start}">
+							<dt>Start</dt>
+							<dd><time>{start -> f:format.date(format:'d.m.Y - H:i:s')}</time></dd>
+						</f:if>
+						<f:if condition="{end}">
+							<dt>End</dt>
+							<dd><time>{end -> f:format.date(format:'d.m.Y - H:i:s')}</time></dd>
+						</f:if>
+					</dl>
+				</f:else>
+			</f:if>
+
+			{content.main -> f:format.raw()}
+		</div>
+
+	</f:section>
+</body>
+</html>
+

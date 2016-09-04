@@ -50,29 +50,49 @@
 			    	<![CDATA[
 			        {
 		        	]]>
-			        	<f:if condition="{eventSource.googleCalendarId}">
-			        	<f:then>
-			        	googleCalendarId: '{eventSource.googleCalendarId}',
-			        	</f:then>
-			        	<f:else>
-				            url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
-	            			type: 'POST',
 
-	            			<![CDATA[
-				            data: {
-			            	]]>
-				                eventSource: '{eventSource -> f:format.identifier()}'
-				            <![CDATA[
-				            },
-				            ]]>
+						<f:switch expression="{eventSource.type}">
+						    <f:case value="0">
+					            url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
+		            			type: 'POST',
 
-				            <![CDATA[
-				            error: function() {
-				                console.log('there was an error while fetching events!');
-				            },
-				            ]]>
-			        	</f:else>
-			        	</f:if>
+		            			<![CDATA[
+					            data: {
+				            	]]>
+					                eventSource: '{eventSource -> f:format.identifier()}'
+					            <![CDATA[
+					            },
+					            ]]>
+
+					            <![CDATA[
+					            error: function() {
+					                console.log('there was an error while fetching events!');
+					            },
+					            ]]>
+						    </f:case>
+						    <f:case value="1">
+			        			googleCalendarId: '{eventSource.googleCalendarId}',
+						    </f:case>
+						    <f:case value="2">
+					            url: "{f:uri.action(action:'pageEvents', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
+		            			type: 'POST',
+
+		            			<![CDATA[
+					            data: {
+				            	]]>
+					                path: '{eventSource.pageSource}'
+					            <![CDATA[
+					            },
+					            ]]>
+
+					            <![CDATA[
+					            error: function() {
+					                console.log('there was an error while fetching events!');
+					            },
+					            ]]>
+						    </f:case>
+						</f:switch>
+
 			            color: '{eventSource.color}',   // a non-ajax option
 			            textColor: '{eventSource.textColor}', // a non-ajax option
 			            backgroundColor: '{eventSource.backgroundColor}', // a non-ajax option

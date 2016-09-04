@@ -2,6 +2,10 @@
 <f:layout name="BackendSubModule"/>
 
 <f:section name="content">
+    <script type="text/javascript" src="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.js', package:'Lsascha.FullCalendar')}"></script>
+    <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
+    <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.structure.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
+    
     <h2>Edit Calendar "{eventSource.title}"</h2>
 
     <div class="neos-row-fluid">
@@ -12,28 +16,26 @@
     <f:form action="update" object="{eventSource}" objectName="eventSource">
 
         <div class="neos-row-fluid">
-            <f:render partial="Module/Administration/CalendarManagement/EventSource/GeneralFields" />
+            <f:render partial="Module/Administration/CalendarManagement/EventSource/GeneralFields" arguments="{eventSource: eventSource}" />
             <f:render partial="Module/Administration/CalendarManagement/EventSource/ColorFields" arguments="{offset: 1}" />
         </div>
         <div class="neos-row-fluid">
-            <f:if condition="{eventSource.googleCalendarId}">
-                <f:then>
-                </f:then>
-                <f:else>
-                    <div class="neos-span2">
-                        <div id="external-events">
-                            <h4>Create Event</h4>
-                            <div id="eventlist">
-                                <div class="fc-event">---</div>
-                            </div>
-                            <p class="neos-help-inline">Enter Event Name, <br />press ENTER <br />Drag &amp; Drop Event on the Calendar.</p>
-                            <div id="removeevent">
-                                <i class="icon-trash icon-white"></i>
-                                <span>&nbsp;Drop here to delete</span>
-                            </div>
+
+
+            <f:if condition="{eventSource.type} == 0">
+                <div class="neos-span2">
+                    <div id="external-events">
+                        <h4>Create Event</h4>
+                        <div id="eventlist">
+                            <div class="fc-event">---</div>
+                        </div>
+                        <p class="neos-help-inline">Enter Event Name, <br />press ENTER <br />Drag &amp; Drop Event on the Calendar.</p>
+                        <div id="removeevent">
+                            <i class="icon-trash icon-white"></i>
+                            <span>&nbsp;Drop here to delete</span>
                         </div>
                     </div>
-                </f:else>
+                </div>
             </f:if>
             <div class="neos-span10">
                 <div id='loading'>updating...</div>
@@ -64,8 +66,10 @@
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.js')}"></script>
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang-all.js')}"></script>
 
-    <f:if condition="{eventSource.googleCalendarId}">
-        <f:then>
+
+
+    <f:switch expression="{eventSource.type}">
+        <f:case value="1">
 
             <script type="text/javascript">
                 <![CDATA[
@@ -105,8 +109,55 @@
                 ]]>
             </script>
 
-        </f:then>
-        <f:else>
+        </f:case>
+        <f:case value="2">
+
+            <script type="text/javascript">
+                <![CDATA[
+                    $(document).ready(function() {
+                        $('#calendar').fullCalendar({
+                            lang: 'de',
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay'
+                            },
+                            editable: false,
+                            weekNumbers: true,
+                            eventLimit: true, // allow "more" link when too many events
+                            eventSources: [
+                                {
+                                    url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}<![CDATA[",
+                                    type: 'POST',
+
+                                    data: {
+                                        path: ']]>{eventSource.pageSource}<![CDATA['
+                                    },
+
+                                    color: ']]>{eventSource.color}<![CDATA[',   // a non-ajax option
+                                    textColor: ']]>{eventSource.textColor}<![CDATA[', // a non-ajax option
+                                    backgroundColor: ']]>{eventSource.backgroundColor}<![CDATA[' // a non-ajax option
+                                    //rendering: ']]>{eventSource.rendering}<![CDATA[' // a non-ajax option
+                                }
+                            ],
+                            loading: function(bool) {
+                                $('#loading').toggle(bool);
+                            },
+                            eventClick: function(event, jsEvent, view) {
+                                if ( event.url ) {
+                                    window.open(event.url, "", "width=550,height=620");
+                                }
+                                return false;
+                            }
+
+                        });
+                    });
+                ]]>
+            </script>
+
+        </f:case>
+        <f:defaultCase>
+
             <script type="text/javascript">
 
             <![CDATA[
@@ -403,8 +454,8 @@
                 ]]>
 
             </script>
-        </f:else>
-    </f:if>
+        </f:defaultCase>
+    </f:switch>
     
 
     <style type="text/css">

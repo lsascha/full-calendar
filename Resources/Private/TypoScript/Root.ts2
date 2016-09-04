@@ -6,3 +6,17 @@ prototype(Lsascha.FullCalendar:Calendar) {
 }
 
 include: Scripts.ts2
+
+include: NodeTypes/*
+
+# document rendering switching
+#prototype(TYPO3.Neos:PrimaryContent).eventsource {
+root.eventsource {
+	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:EventSource]')}
+	type = 'Lsascha.FullCalendar:EventSource'
+}
+#prototype(TYPO3.Neos:PrimaryContent).event {
+root.event {
+	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:Event]')}
+	type = 'Lsascha.FullCalendar:Event'
+}

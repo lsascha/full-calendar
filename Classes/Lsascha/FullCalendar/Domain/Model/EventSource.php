@@ -20,6 +20,10 @@ use Doctrine\ORM\Mapping as ORM;
 class EventSource
 {
 
+    const EVENT_OBJECT_SOURCE = 0;
+    const EVENT_GOOGLE_SOURCE = 1;
+    const EVENT_PAGES_SOURCE = 2;
+
     /**
      * @Flow\Validate(type="NotEmpty")
      * @var string
@@ -61,6 +65,17 @@ class EventSource
      * @var string
      */
     protected $rendering = NULL;
+
+    /**
+     * @var int
+     */
+    protected $type = self::EVENT_OBJECT_SOURCE;
+
+    /**
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    protected $pageSource = NULL;
 
     /**
      * @ORM\OneToMany(mappedBy="eventSource", cascade={"all"})
@@ -240,6 +255,41 @@ class EventSource
     public function setEvents(\Doctrine\Common\Collections\Collection $events)
     {
         $this->events = $events;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     * @return void
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageSource()
+    {
+        return $this->pageSource;
+    }
+
+    /**
+     * @param string $pageSource
+     * @return void
+     */
+    public function setPageSource($pageSource)
+    {
+        $this->pageSource = $pageSource;
     }
 
 }

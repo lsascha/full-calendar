@@ -68,7 +68,7 @@ class Event
      * Constructs this post
      */
     public function __construct() {
-            $this->start = new \DateTime();
+        $this->start = new \DateTime();
     }
 
     /**

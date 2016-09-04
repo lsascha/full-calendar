@@ -83,3 +83,129 @@
           group: 'options'
           editorOptions:
             placeholder: 'define button / title on top right'
+
+'Lsascha.FullCalendar:EventSource':
+  superTypes:
+    'TYPO3.Neos:Document': TRUE
+  ui:
+    label: 'Calendar'
+    icon: 'icon-calendar'
+    inspector:
+      groups:
+        data:
+          label: 'Options'
+          position: 11
+          icon: 'icon-calendar'
+  childNodes: ~
+  properties:
+    rendering:
+      type: string
+      ui:
+        label: 'rendering'
+        inspector:
+          group: 'data'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            allowEmpty: TRUE
+            placeholder: 'Select Rendering'
+            values:
+              background:
+                label: 'background'
+                icon: 'icon-legal'
+              inverse-background:
+                label: 'inverse-background'
+                icon: 'icon-fire'
+    color:
+      type: string
+      ui:
+        label: 'Color'
+        inspector:
+          group: 'data'
+          position: 10000
+    backgroundColor:
+      type: string
+      ui:
+        label: 'backgroundColor'
+        inspector:
+          group: 'data'
+          position: 10001
+    borderColor:
+      type: string
+      ui:
+        label: 'borderColor'
+        inspector:
+          group: 'data'
+          position: 10002
+    textColor:
+      type: string
+      ui:
+        label: 'textColor'
+        inspector:
+          group: 'data'
+          position: 10003
+
+'Lsascha.FullCalendar:Event':
+  superTypes:
+    'TYPO3.Neos:Document': TRUE
+  ui:
+    label: 'Event'
+    icon: 'icon-calendar-check-o'
+    inspector:
+      tabs:
+        data:
+          label: 'Data'
+          position: 11
+          icon: 'icon-calendar'
+      groups:
+        detail:
+          label: 'Details'
+          tab: 'data'
+  childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
+  properties:
+    allDay:
+      type: boolean
+      ui:
+        label: 'allDay'
+        inspector:
+          group: 'detail'
+          position: 10
+    start:
+      type: DateTime
+      defaultValue: 'today midnight'
+      ui:
+        label: 'start'
+        inspector:
+          group: 'detail'
+          position: 15
+          editorOptions:
+            format: 'd-m-Y H:i'
+    end:
+      type: DateTime
+      defaultValue: 'today midnight'
+      ui:
+        label: 'end'
+        inspector:
+          group: 'detail'
+          position: 20
+          editorOptions:
+            format: 'd-m-Y H:i'
+    rendering:
+      type: string
+      ui:
+        label: 'rendering'
+        inspector:
+          group: 'detail'
+          position: 25
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            allowEmpty: TRUE
+            placeholder: 'Select Rendering'
+            values:
+              background:
+                label: 'background'
+                icon: 'icon-legal'
+              inverse-background:
+                label: 'inverse-background'
+                icon: 'icon-fire'

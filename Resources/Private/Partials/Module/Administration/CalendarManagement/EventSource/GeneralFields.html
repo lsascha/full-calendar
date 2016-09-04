@@ -1,4 +1,4 @@
-
+{namespace neos=TYPO3\Neos\ViewHelpers}
 <fieldset class="neos-span5 {f:if(condition:offset, then:'neos-offset1')}">
     <legend>General Options</legend>
 
@@ -10,11 +10,32 @@
     </div>
 
     <div class="neos-control-group">
-        <label class="neos-control-label" for="googleCalendarId">Google Calendar Id</label>
+        <label class="neos-control-label" for="type">Type</label>
         <div class="neos-controls">
-            <f:form.textfield property="googleCalendarId" id="googleCalendarId" placeholder="only fill if google calendar should be used as source" class="neos-span12" />
+            <f:form.select property="type" id="type" options="{0:'Own Source', 1:'Google', 2:'Neos Page' }" />
         </div>
     </div>
+
+    <f:switch expression="{eventSource.type}">
+        <f:case value="1">
+            <div class="neos-control-group">
+                <label class="neos-control-label" for="googleCalendarId">Google Calendar Id</label>
+                <div class="neos-controls">
+                    <f:form.textfield property="googleCalendarId" id="googleCalendarId" placeholder="only fill if google calendar should be used as source" class="neos-span12" />
+                </div>
+            </div>
+        </f:case>
+        <f:case value="2">
+            <div class="neos-control-group">
+                <label class="neos-control-label" for="pageSource">Neos Page</label>
+                <div class="neos-controls">
+                    <f:form.textfield property="pageSource" id="pageSource" placeholder="enter node-path to EventSource Page Type" class="neos-span12" />
+                </div>
+            </div>
+        </f:case>
+    </f:switch>
+
+
 
     <div class="neos-control-group">
         <label class="neos-control-label" for="rendering">Rendering</label>
@@ -23,3 +44,58 @@
         </div>
     </div>
 </fieldset>
+
+<script type="text/javascript">
+<![CDATA[
+    jQuery(document).ready(function() {
+
+        $( "#pageSource" ).autocomplete({
+            source: function(request, response) {
+
+                $.ajax({
+                    async: true,
+                    method: 'GET',
+                    cache: false,
+                    //dataType: "json",
+                    ]]>
+                    url: "{f:uri.action(action: 'index', controller: 'Service\\Nodes', package: 'TYPO3.Neos', absolute: true, format: 'html', useParentRequest:1)}",
+                    <![CDATA[
+                    data: {
+                    ]]>
+                        searchTerm: request.term,
+                        nodeTypes: 'Lsascha.FullCalendar:EventSource'
+                        //__csrfToken: '{f:security.csrfToken()}'
+                    <![CDATA[
+                    }
+                }).success(function(data, textStatus, jqXHR) {
+                ]]>
+                    nodes = [];
+
+                    <![CDATA[
+                    $(data).find('ul.nodes li.node').each(function( index ) {
+                    ]]>
+                        nodeLabel = $(this).find('label.node-label').text();
+                        nodeIdentifier = $(this).find('.node-identifier').text();
+                        nodeUrl = $(this).find('a.node-frontend-uri').text().trim();
+                        nodeAbsUrl = $(this).find('a.node-frontend-uri').attr('href');
+
+                        nodePath = $(this).find('span.node-path').text();
+
+                        nodeUserLabel = nodeLabel + ' ['+nodeUrl+']';
+
+                        nodes.push({label: nodeUserLabel, value: nodePath});
+                    <![CDATA[
+                    });
+                    ]]>
+                    <![CDATA[
+                    response(nodes);
+                }).done(function() {
+                    //$( this ).addClass( "done" );
+                });
+
+            }
+        });
+
+    });
+]]>
+</script>

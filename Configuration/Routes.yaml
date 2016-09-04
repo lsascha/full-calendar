@@ -1,6 +1,6 @@
 -
   name: 'calendar-source'
-  uriPattern: 'calendar/cal.{@format}'
+  uriPattern: 'calendar/cal/{@action}.{@format}'
   defaults:
     '@package':    'Lsascha.FullCalendar'
     '@controller': 'EventSource'

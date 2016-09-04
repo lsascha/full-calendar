@@ -1,0 +1,25 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{title}</title>
+</head>
+<body>
+	<f:section name="body">
+		<h2>Events</h2>
+		<ul>
+			<f:for each="{events}" as="event">
+		    	<li>
+			    	<neos:link.node node="{event}">
+			    	{event.properties.title}<br />
+			    	{event.properties.start -> f:format.date(format:'d.m.Y')} &ndash; {event.properties.end -> f:format.date(format:'d.m.Y')}
+			    	</neos:link.node>
+		    	</li>
+			</f:for>
+		</ul>
+
+	</f:section>
+</body>
+</html>
+
