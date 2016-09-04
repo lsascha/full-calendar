@@ -12,6 +12,7 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @Flow\Entity
  */
@@ -56,6 +57,12 @@ class Event
      * @var string
      */
     protected $rendering = NULL;
+
+    /**
+     * @ORM\Column(nullable=true)
+     * @var string
+     */
+    protected $url;
 
     /**
      * Constructs this post
@@ -183,6 +190,23 @@ class Event
     public function setRendering($rendering)
     {
         $this->rendering = $rendering;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     * @return void
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 
 }

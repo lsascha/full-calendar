@@ -85,7 +85,14 @@
 			    <![CDATA[
 				loading: function(bool) {
 					jQuery('#loading-'+idIdentifier).toggle(bool);
-				}
+				},
+                eventClick: function(event, jsEvent, view) {
+                    //if ( event.url ) {
+                    //    //window.open(event.url, "", "width=550,height=620");
+                    //    window.location.href = event.url;
+                    //}
+                    //return false;
+                }
 				]]>
 
 			<![CDATA[

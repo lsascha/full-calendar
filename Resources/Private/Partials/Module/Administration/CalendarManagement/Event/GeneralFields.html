@@ -1,3 +1,4 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
 <fieldset class="neos-span5 {f:if(condition:offset, then:'neos-offset1')}">
     <legend>Options</legend>
 
@@ -16,9 +17,9 @@
     </div>
 
     <div class="neos-control-group">
-        <label class="neos-control-label" for="link">Link</label>
+        <label class="neos-control-label" for="url">Link</label>
         <div class="neos-controls">
-            <f:form.textfield property="link" id="link" class="neos-span12" />
+            <f:form.textfield property="url" id="url" class="neos-span12" />
         </div>
     </div>
 </fieldset>
@@ -27,40 +28,43 @@
 <![CDATA[
     jQuery(document).ready(function() {
 
-        /*$( "#link" ).on( "propertychange change click keyup input paste", function() {
-
-            if ( $( this ).data('oldval') != $( this ).val() ) {
-                console.log( $( this ).val() );
-            }
-
-            $( this ).data('oldval', $( this ).val() );
-        });*/
-
-
-        /*
-            TODO: call
-            /usr/share/nginx/html/Neos/Packages/Application/TYPO3.Neos/Classes/TYPO3/Neos/Controller/Service/NodesController.php
-
-         */
-
-        $( "#link" ).autocomplete({
+        $( "#url" ).autocomplete({
             source: function(request, response) {
 
                 $.ajax({
-                    async: false,
-                    method: 'POST',
+                    async: true,
+                    method: 'GET',
+                    cache: false,
+                    //dataType: "json",
                     ]]>
-                    url: "{f:uri.action(action: 'index', controller: 'Nodes', package: 'TYPO3.Neos', format: 'json', useParentRequest:0)}",
+                    url: "{f:uri.action(action: 'index', controller: 'Service\\Nodes', package: 'TYPO3.Neos', absolute: true, format: 'html', useParentRequest:1)}",
                     <![CDATA[
                     data: {
                     ]]>
                         searchTerm: request.term,
-                        __csrfToken: '{f:security.csrfToken()}'
+                        //__csrfToken: '{f:security.csrfToken()}'
                     <![CDATA[
                     }
                 }).success(function(data, textStatus, jqXHR) {
-                    console.log(data);
-                    response([{ label: 'Example', value: 'ex'  }]);
+                ]]>
+                    nodes = [];
+
+                    <![CDATA[
+                    $(data).find('ul.nodes li.node').each(function( index ) {
+                    ]]>
+                        nodeLabel = $(this).find('label.node-label').text();
+                        nodeIdentifier = $(this).find('.node-identifier').text();
+                        nodeUrl = $(this).find('a.node-frontend-uri').text().trim();
+                        nodeAbsUrl = $(this).find('a.node-frontend-uri').attr('href');
+
+                        nodeUserLabel = nodeLabel + ' ['+nodeUrl+']';
+
+                        nodes.push({label: nodeUserLabel, value: nodeUrl});
+                    <![CDATA[
+                    });
+                    ]]>
+                    <![CDATA[
+                    response(nodes);
                 }).done(function() {
                     //$( this ).addClass( "done" );
                 });
