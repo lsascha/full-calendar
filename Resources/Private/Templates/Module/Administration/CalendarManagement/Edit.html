@@ -215,18 +215,6 @@
                         <![CDATA[
                         drop: function(date, jsEvent, ui, resourceId) {
 
-                            //makeDraggable(this);
-
-                            console.log( 'date' );
-                            console.log( date );
-                            console.log( 'date.to()' );
-                            console.log( date.to() );
-                            console.log( 'date.format(X)' );
-                            console.log( date.format('X') );
-                            console.log( 'resourceId' );
-                            console.log( resourceId );
-
-
                             $.ajax({
                             ]]>
                                 type: "POST",
@@ -251,8 +239,6 @@
 
                                 <![CDATA[
                                 success: function() {
-                                    console.log('fetched');
-
                                     $('#calendar').fullCalendar( 'refetchEvents' );
                                 }
                                 ]]>
@@ -263,9 +249,6 @@
 
                         },
                         eventDrop: function(event, delta, revertFunc) {
-
-                            console.log(event);
-
                             $.ajax({
                             ]]>
                                 type: "POST",
@@ -293,8 +276,6 @@
 
                                 <![CDATA[
                                 success: function() {
-                                    console.log('fetched');
-
                                     $('#calendar').fullCalendar( 'refetchEvents' );
                                 }
                                 ]]>
@@ -330,8 +311,6 @@
 
                                 <![CDATA[
                                 success: function() {
-                                    console.log('fetched');
-
                                     $('#calendar').fullCalendar( 'refetchEvents' );
                                 }
                                 ]]>
