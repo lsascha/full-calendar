@@ -16,7 +16,7 @@ class Version20160904023048 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on "mysql".');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on "postgresql".');
         
         $this->addSql('ALTER TABLE lsascha_fullcalendar_domain_model_event ADD url VARCHAR(255) DEFAULT NULL');
     }
@@ -27,7 +27,7 @@ class Version20160904023048 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on "mysql".');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on "postgresql".');
         
         $this->addSql('ALTER TABLE lsascha_fullcalendar_domain_model_event DROP url');
     }
