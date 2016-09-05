@@ -4,6 +4,7 @@ namespace Lsascha\FullCalendar\Domain\Model;
 /*
  * This file is part of the Lsascha.FullCalendar package.
  */
+use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +20,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EventSource
 {
+    /**
+     * @Flow\Inject
+     * @var PersistenceManagerInterface
+     */
+    protected $persistenceManager;
 
     const EVENT_OBJECT_SOURCE = 0;
     const EVENT_GOOGLE_SOURCE = 1;
@@ -92,6 +98,14 @@ class EventSource
     public function __construct($title) {
             $this->events = new ArrayCollection();
             $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->persistenceManager->getIdentifierByObject($this);
     }
 
     /**

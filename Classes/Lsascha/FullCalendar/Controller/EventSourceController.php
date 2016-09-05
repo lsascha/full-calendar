@@ -100,7 +100,8 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 
         $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
         
-        $rootNode = $this->context->getNode($path);
+        //$rootNode = $this->context->getNode($path);
+        $rootNode = $this->context->getNodeByIdentifier($path);
         
         $q = new FlowQuery([$rootNode]);
         $nodes = $q->children('[instanceof Lsascha.FullCalendar:Event]')->get();

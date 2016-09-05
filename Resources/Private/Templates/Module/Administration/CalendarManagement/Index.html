@@ -18,7 +18,13 @@
                 <tr>
                     <td style="{f:if(condition: eventSource.backgroundColor, then: 'background-color:{eventSource.backgroundColor};')} {f:if(condition: eventSource.textColor, then: 'color:{eventSource.textColor};')} width:5px;"># {eventSourceIterator.cycle}</td>
                     <td><div title="{eventSource->f:format.identifier()}" data-neos-toggle="tooltip" data-placement="top">{eventSource.title}</div></td>
-                    <td>{f:if(condition: eventSource.googleCalendarId, then: eventSource.googleCalendarId, else: '{eventSource.events -> f:count()}' )}</td>
+                    <td>
+                        <f:switch expression="{eventSource.type}">
+                            <f:case value="1">Google: "{eventSource.googleCalendarId}"</f:case>
+                            <f:case value="2">Page node: {eventSource.pageSource}</f:case>
+                            <f:defaultCase>{eventSource.events -> f:count()}</f:defaultCase>
+                        </f:switch>
+                    </td>
                     <td class="neos-action">
                         <div class="neos-pull-right">
                             <f:link.action action="edit" arguments="{eventSource: eventSource}" class="neos-button neos-button-primary" title="Edit this Calendar" data="{neos-toggle:'tooltip', placement:'top'}" >

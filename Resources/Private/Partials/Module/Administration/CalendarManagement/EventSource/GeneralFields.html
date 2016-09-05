@@ -81,9 +81,9 @@
 
                         nodePath = $(this).find('span.node-path').text();
 
-                        nodeUserLabel = nodeLabel + ' ['+nodeUrl+']';
+                        nodeUserLabel = nodeUrl + ' [' + nodeIdentifier + ']';
 
-                        nodes.push({label: nodeUserLabel, value: nodePath});
+                        nodes.push({label: nodeUserLabel, value: nodeIdentifier});
                     <![CDATA[
                     });
                     ]]>

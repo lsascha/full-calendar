@@ -17,6 +17,7 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
+use TYPO3\Eel\FlowQuery\FlowQuery;
 
 class CalendarManagementController extends AbstractModuleController
 {
@@ -46,6 +47,12 @@ class CalendarManagementController extends AbstractModuleController
     protected $eventRepository;
 
     /**
+     * @Flow\Inject
+     * @var \TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+     */
+    protected $contextFactory;
+
+    /**
      * @var array
      */
     protected $viewFormatToObjectNameMap = array(
@@ -70,9 +77,26 @@ class CalendarManagementController extends AbstractModuleController
      */
     public function indexAction()
     {
+
         $eventSources = $this->eventSourceRepository->findAll();
+
+
+        /*$this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+        $eventSourceCount = [];
+        foreach ($eventSources as $eventSource) {
+            $rootNode = $this->context->getNodeByIdentifier($eventSource->getPageSource());
+
+            $q = new FlowQuery([$rootNode]);
+            $nodeCount = $q->children('[instanceof Lsascha.FullCalendar:Event]')->count();
+
+            $eventSourceCount[$eventSource->getIdentifier()]['pageCount'] = $nodeCount;
+
+            unset($q);
+            unset($nodeCount);
+        }*/
         
         $this->view->assign('eventSources', $eventSources);
+
     }
 
 	/**
