@@ -5,7 +5,7 @@ prototype(Lsascha.FullCalendar:Calendar) {
 	action = 'pluginIndex'
 }
 
-include: Scripts.ts2
+include: Scripts.fusion
 
 include: NodeTypes/*
 
