@@ -32,16 +32,18 @@ Neos:
         'Lsascha.FullCalendar': TRUE
 
     modules:
-      calendarAdministration:
-        label: 'Calendar Administration'
-        controller: '\Lsascha\FullCalendar\Controller\Module\CalendarAdministrationController'
-        description: 'administrate calendars'
-        icon: 'icon-calendar'
-        privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+      'management':
         submodules:
-          lsaschaCalendarManagement:
-            label: 'Calendar Management'
+          'calendarAdministration':
+            label: 'Calendar Administration'
+            controller: '\Lsascha\FullCalendar\Controller\Module\CalendarAdministrationController'
+            description: 'administrate calendars'
             icon: 'icon-calendar'
-            controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
-            description: 'Provides administration tools for maintaining calendars.'
             privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+            submodules:
+              'lsaschaCalendarManagement':
+                label: 'Calendar Management'
+                icon: 'icon-calendar'
+                controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
+                description: 'Provides administration tools for maintaining calendars.'
+                privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'

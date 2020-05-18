@@ -1,4 +1,4 @@
-{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace neos=Neos\Neos\ViewHelpers}
 <fieldset class="neos-span5 {f:if(condition:offset, then:'neos-offset1')}">
     <legend>General Options</legend>
 
@@ -58,7 +58,7 @@
                     cache: false,
                     //dataType: "json",
                     ]]>
-                    url: "{f:uri.action(action: 'index', controller: 'Service\\Nodes', package: 'TYPO3.Neos', absolute: true, format: 'html', useParentRequest:1)}",
+                    url: "{f:uri.action(action: 'index', controller: 'Service\\Nodes', package: 'Neos.Neos', absolute: true, format: 'html', useParentRequest:1)}",
                     <![CDATA[
                     data: {
                     ]]>

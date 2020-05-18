@@ -56,7 +56,7 @@ class CalendarManagementController extends AbstractModuleController
      * @var array
      */
     protected $viewFormatToObjectNameMap = array(
-        'html' => 'Neos\Fluid\View\TemplateView',
+        'html' => 'Neos\FluidAdaptor\View\TemplateView',
         'json' => 'Neos\Flow\Mvc\View\JsonView'
     );
 
