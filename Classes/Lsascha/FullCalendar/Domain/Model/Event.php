@@ -4,12 +4,12 @@ namespace Lsascha\FullCalendar\Domain\Model;
 /*
  * This file is part of the Lsascha.FullCalendar package.
  */
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 
 use Lsascha\FullCalendar\Domain\Model\EventSource;
 use Lsascha\FullCalendar\Domain\Model\Event;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 

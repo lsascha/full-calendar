@@ -5,11 +5,11 @@ namespace Lsascha\FullCalendar\Controller\Module\Administration;
  * This file is part of the Lsascha.FullCalendar package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
-use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
-use TYPO3\Neos\Controller\Module\AbstractModuleController;
+use Neos\Flow\Error\Message;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Neos\Controller\Module\AbstractModuleController;
 
 use Lsascha\FullCalendar\Domain\Model\EventSource;
 use Lsascha\FullCalendar\Domain\Model\Event;
@@ -17,13 +17,13 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
-use TYPO3\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\FlowQuery;
 
 class CalendarManagementController extends AbstractModuleController
 {
 
 	///**
-	//* @var \TYPO3\Flow\Security\Context
+	//* @var \Neos\Flow\Security\Context
 	//* @Flow\Inject
 	//*/
 	//protected $securityContext;
@@ -48,7 +48,7 @@ class CalendarManagementController extends AbstractModuleController
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+     * @var \Neos\ContentRepository\Domain\Service\ContextFactoryInterface
      */
     protected $contextFactory;
 
@@ -56,8 +56,8 @@ class CalendarManagementController extends AbstractModuleController
      * @var array
      */
     protected $viewFormatToObjectNameMap = array(
-        'html' => 'TYPO3\Fluid\View\TemplateView',
-        'json' => 'TYPO3\Flow\Mvc\View\JsonView'
+        'html' => 'Neos\Fluid\View\TemplateView',
+        'json' => 'Neos\Flow\Mvc\View\JsonView'
     );
 
     /**
@@ -145,7 +145,7 @@ class CalendarManagementController extends AbstractModuleController
 
         $header = 'saved Calendar';
         $message = 'saved Calendar "'.$eventSource->getTitle().'"';
-        $this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+        $this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 
 		$this->redirect('index');
 	}
@@ -161,7 +161,7 @@ class CalendarManagementController extends AbstractModuleController
 
         $header = 'deleted Calendar';
         $message = 'deleted Calendar';
-        $this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+        $this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 
         $this->redirect('index');
     }
@@ -275,9 +275,9 @@ class CalendarManagementController extends AbstractModuleController
 	/**
 	 * delete Event
 	 * @param Event $event
-	 * @return void
+	 * @return string
 	 */
-	public function deleteEventFormAction(Event $event) {
+	public function deleteEventFormAction(Event $event): string {
 		$this->eventRepository->remove($event);
 
         //$this->redirect('editEventForm', NULL, NULL, ['event'=>$event]);
@@ -294,7 +294,7 @@ class CalendarManagementController extends AbstractModuleController
 
         $header = 'saved Event';
         $message = 'saved Event';
-        $this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+        $this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 
 		$this->redirect('editEventForm', NULL, NULL, ['event'=>$event]);
 	}

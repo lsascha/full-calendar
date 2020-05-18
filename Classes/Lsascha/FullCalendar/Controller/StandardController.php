@@ -5,14 +5,14 @@ namespace Lsascha\FullCalendar\Controller;
  * This file is part of the Lsascha.FullCalendar package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
-use TYPO3\Flow\Utility\Files;
+use Neos\Flow\Utility\Files;
 
-class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
+class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
 {
 
     /**
@@ -90,7 +90,7 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController
         );
 
 
-        $userLanguages = \TYPO3\Flow\I18n\Utility::parseAcceptLanguageHeader($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $userLanguages = \Neos\Flow\I18n\Utility::parseAcceptLanguageHeader($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
         foreach ($userLanguages as $userLang)
         {

@@ -5,7 +5,7 @@
     "keywords": ["neos","flow","calendar"],
     "homepage": "https://github.com/lsascha/full-calendar/",
     "require": {
-        "typo3/flow": "*"
+        "neos/flow": "*"
     },
     "name": "lsascha/fullcalendar",
     "autoload": {

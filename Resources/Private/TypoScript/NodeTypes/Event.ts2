@@ -1,5 +1,5 @@
 prototype(Lsascha.FullCalendar:Event) >
-prototype(Lsascha.FullCalendar:Event) < prototype(TYPO3.Neos:Page)
+prototype(Lsascha.FullCalendar:Event) < prototype(Neos.Neos:Page)
 prototype(Lsascha.FullCalendar:Event) {
 
 	#start = ${ Date.format( q(node).property('end'), 'd.m' ) }
@@ -9,7 +9,7 @@ prototype(Lsascha.FullCalendar:Event) {
     	templatePath = 'resource://Lsascha.FullCalendar/Private/Templates/Page/Event.html'
 		sectionName = 'body'
 		content {
-			main = TYPO3.Neos:PrimaryContent
+			main = Neos.Neos:PrimaryContent
 			main {
 				nodePath = 'main'
 			}

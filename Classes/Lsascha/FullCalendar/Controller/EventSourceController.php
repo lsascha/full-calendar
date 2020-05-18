@@ -5,7 +5,7 @@ namespace Lsascha\FullCalendar\Controller;
  * This file is part of the Lsascha.FullCalendar package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 use Lsascha\FullCalendar\Domain\Model\EventSource;
 use Lsascha\FullCalendar\Domain\Model\Event;
@@ -13,17 +13,17 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
-use TYPO3\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\FlowQuery;
 
 
-class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
+class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
 {
 
     /**
      * @var string
      */
     protected $viewFormatToObjectNameMap = array(
-        'json' => '\TYPO3\Flow\Mvc\View\JsonView'
+        'json' => '\Neos\Flow\Mvc\View\JsonView'
     );
 
     /**
@@ -48,7 +48,7 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+     * @var \Neos\ContentRepository\Domain\Service\ContextFactoryInterface
      */
     protected $contextFactory;
 
@@ -116,7 +116,7 @@ class EventSourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 
             $url = $this->uriBuilder
                         ->reset()
-                        ->uriFor('show', array('node' => $node->getPath()), 'Frontend\Node', 'TYPO3.Neos');
+                        ->uriFor('show', array('node' => $node->getPath()), 'Frontend\Node', 'Neos.Neos');
 
             $nodeArray[] = [
                 'title' => $title,

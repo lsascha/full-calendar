@@ -1,12 +1,12 @@
 <?php
 namespace Lsascha\FullCalendar\DataSource;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 
-use TYPO3\Neos\Service\DataSource\AbstractDataSource;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
+use Neos\Neos\Service\DataSource\AbstractDataSource;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
@@ -36,7 +36,7 @@ class EventSourceDataSource extends AbstractDataSource {
      * @param array $arguments Additional arguments (key / value)
      * @return array JSON serializable data
      */
-    public function getData(NodeInterface $node = NULL, array $arguments)
+    public function getData(NodeInterface $node = null, array $arguments = [])
     {
 
 

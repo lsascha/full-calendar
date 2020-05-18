@@ -5,8 +5,10 @@ namespace Lsascha\FullCalendar\Domain\Repository;
  * This file is part of the Lsascha.FullCalendar package.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
+use Lsascha\FullCalendar\Domain\Model\Event;
+use Neos\Flow\Persistence\QueryResultInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -18,7 +20,7 @@ class EventSourceRepository extends Repository
      * Finds the eventSources from array
      *
      * @param array $eventSourceIds array of event source ids to fetch
-     * @return Event
+     * @return Event|QueryResultInterface
      */
     public function findAllByIds(array $eventSourceIds = NULL) {
             $query = $this->createQuery();

@@ -11,12 +11,12 @@ use Lsascha\FullCalendar\Domain\Model\Event;
 use Lsascha\FullCalendar\Domain\Repository\EventRepository;
 use Lsascha\FullCalendar\Domain\Repository\EventSourceRepository;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * @Flow\Scope("singleton")
  */
-class CalendarCommandController extends \TYPO3\Flow\Cli\CommandController
+class CalendarCommandController extends \Neos\Flow\Cli\CommandController
 {
 
     /**

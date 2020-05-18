@@ -1,4 +1,4 @@
-prototype(Lsascha.FullCalendar:Calendar) < prototype(TYPO3.Neos:Plugin)
+prototype(Lsascha.FullCalendar:Calendar) < prototype(Neos.Neos:Plugin)
 prototype(Lsascha.FullCalendar:Calendar) {
 	package = 'Lsascha.FullCalendar'
 	controller = 'Standard'
@@ -10,12 +10,12 @@ include: Scripts.ts2
 include: NodeTypes/*
 
 # document rendering switching
-#prototype(TYPO3.Neos:PrimaryContent).eventsource {
+#prototype(Neos.Neos:PrimaryContent).eventsource {
 root.eventsource {
 	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:EventSource]')}
 	type = 'Lsascha.FullCalendar:EventSource'
 }
-#prototype(TYPO3.Neos:PrimaryContent).event {
+#prototype(Neos.Neos:PrimaryContent).event {
 root.event {
 	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:Event]')}
 	type = 'Lsascha.FullCalendar:Event'

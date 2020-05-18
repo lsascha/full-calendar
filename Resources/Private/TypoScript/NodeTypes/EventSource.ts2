@@ -1,5 +1,5 @@
 prototype(Lsascha.FullCalendar:EventSource) >
-prototype(Lsascha.FullCalendar:EventSource) < prototype(TYPO3.Neos:Page)
+prototype(Lsascha.FullCalendar:EventSource) < prototype(Neos.Neos:Page)
 prototype(Lsascha.FullCalendar:EventSource) {
 
 	body {

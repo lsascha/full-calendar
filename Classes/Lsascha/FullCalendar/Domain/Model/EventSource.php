@@ -4,7 +4,7 @@ namespace Lsascha\FullCalendar\Domain\Model;
 /*
  * This file is part of the Lsascha.FullCalendar package.
  */
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Lsascha\FullCalendar\Domain\Model\EventSource;
 use Lsascha\FullCalendar\Domain\Model\Event;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -233,7 +233,7 @@ class EventSource
     public function getEvents()
     {
 
-        if ($this->events instanceof \TYPO3\Flow\Object\DependencyInjection\DependencyProxy) {
+        if ($this->events instanceof \Neos\Flow\ObjectManagement\DependencyInjection\DependencyProxy) {
             $this->events->_activateDependency();
         }
 

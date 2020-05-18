@@ -2,7 +2,7 @@ Lsascha:
   FullCalendar:
     # module widget setup
     moduleConfiguration:
-      widgetTemplatePathAndFileName: 'resource://TYPO3.Neos/Private/Templates/Module/Widget.html'
+      widgetTemplatePathAndFileName: 'resource://Neos.Neos/Private/Templates/Module/Widget.html'
       
     # Calendar plugin configuration
     googleCalendarApiKey: ~
@@ -24,10 +24,10 @@ Lsascha:
 
 
 # Backend modules configuration
-TYPO3:
+Neos:
   Neos:
 
-    typoScript:
+    fusion:
       autoInclude:
         'Lsascha.FullCalendar': TRUE
 
