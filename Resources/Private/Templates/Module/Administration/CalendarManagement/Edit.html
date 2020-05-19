@@ -127,7 +127,7 @@
                             eventLimit: true, // allow "more" link when too many events
                             eventSources: [
                                 {
-                                    url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}<![CDATA[",
+                                    url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', format:'json', useParentRequest:0) -> f:format.raw()}<![CDATA[",
                                     type: 'POST',
 
                                     data: {
@@ -269,7 +269,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'addEvent', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'addEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -303,7 +303,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'updateEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -339,7 +339,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'updateEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -375,7 +375,7 @@
                         eventClick: function(event, jsEvent, view) {
                         ]]>
 
-                            window.open("{f:uri.action(action:'editEventForm', controller:'CalendarManagement', package:'Lsascha.FullCalendar', useParentRequest:0)}?moduleArguments[event]="+event.id, "", "width=550,height=620");
+                            window.open("{f:uri.action(action:'editEventForm', useParentRequest:0) -> f:format.raw()}?moduleArguments[event]="+event.id, "", "width=550,height=620");
                             //window.open(event.id);
                             return false;
 
@@ -412,13 +412,15 @@
                                 googleCalendarId: '{eventSource.googleCalendarId}',
                                 </f:then>
                                 <f:else>
-                                    url: "{f:uri.action(action:'index', controller:'EventSource', format:'json', useParentRequest:0)}", // use the `url` property
+                                    url: "{f:uri.action(action:'index', controller:'EventSource', format:'json', useParentRequest:0) -> f:format.raw()}", // use the `url` property
                                     type: 'GET',
                                     <![CDATA[
                                     data: {
+                                        moduleArguments: {
                                     ]]>
                                         eventSource: '{eventSource -> f:format.identifier()}'
                                     <![CDATA[
+                                        },
                                     },
                                     error: function() {
                                         console.log('there was an error while fetching events!');

@@ -58,9 +58,14 @@ class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
      * @param string $end
      * @return void
      */
-    public function indexAction(EventSource $eventSource, $start, $end)
+    public function indexAction(EventSource $eventSource, $start = null, $end = null)
     {
-
+        if (($start === null) && $this->request->getParentRequest()->hasArgument("start")) {
+            $start = $this->request->getParentRequest()->getArgument("start");
+        }
+        if (($end === null) && $this->request->getParentRequest()->hasArgument("start")) {
+            $end = $this->request->getParentRequest()->getArgument("end");
+        }
         if ( method_exists($this->view, 'setVariablesToRender') ) {
             $this->view->setVariablesToRender(array('events' ));
         }
@@ -99,10 +104,10 @@ class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
     {
 
         $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
-        
+
         //$rootNode = $this->context->getNode($path);
         $rootNode = $this->context->getNodeByIdentifier($path);
-        
+
         $q = new FlowQuery([$rootNode]);
         $nodes = $q->children('[instanceof Lsascha.FullCalendar:Event]')->get();
 
@@ -158,7 +163,7 @@ class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
      */
     public function eventsAction()
     {
-        
+
     }
 
 }
