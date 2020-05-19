@@ -27,23 +27,21 @@ Lsascha:
 Neos:
   Neos:
 
+    mvc:
+      routes:
+        'Lsascha.FullCalendar': TRUE
+
     fusion:
       autoInclude:
         'Lsascha.FullCalendar': TRUE
 
     modules:
-      'management':
+      management:
         submodules:
-          'calendarAdministration':
-            label: 'Calendar Administration'
-            controller: '\Lsascha\FullCalendar\Controller\Module\CalendarAdministrationController'
-            description: 'administrate calendars'
+          calendarAdministration:
+            label: 'Calendar'
             icon: 'icon-calendar'
+            mainStylesheet: 'Lite'
+            controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
+            description: 'Provides administration tools for maintaining calendars.'
             privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
-            submodules:
-              'lsaschaCalendarManagement':
-                label: 'Calendar Management'
-                icon: 'icon-calendar'
-                controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
-                description: 'Provides administration tools for maintaining calendars.'
-                privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'

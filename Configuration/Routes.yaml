@@ -5,6 +5,7 @@
     '@package':    'Lsascha.FullCalendar'
     '@controller': 'EventSource'
     '@action':     'index'
+  appendExceedingArguments: true
 
 -
   name: 'calendar-html'

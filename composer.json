@@ -9,8 +9,8 @@
     },
     "name": "lsascha/fullcalendar",
     "autoload": {
-        "psr-0": {
-            "Lsascha\\FullCalendar": "Classes/"
+        "psr-4": {
+            "Lsascha\\FullCalendar\\": "Classes/"
         }
     },
     "extra": {

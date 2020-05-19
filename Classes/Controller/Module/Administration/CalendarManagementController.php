@@ -71,7 +71,7 @@ class CalendarManagementController extends AbstractModuleController
         'application/json'
     );
 
-    
+
     /**
      * @return void
      */
@@ -94,7 +94,7 @@ class CalendarManagementController extends AbstractModuleController
             unset($q);
             unset($nodeCount);
         }*/
-        
+
         $this->view->assign('eventSources', $eventSources);
 
     }
@@ -114,7 +114,7 @@ class CalendarManagementController extends AbstractModuleController
 	 * @return void
 	 */
 	public function createAction(EventSource $newEventSource) {
-		
+
 		$this->eventSourceRepository->add($newEventSource);
 
 		$this->redirect('index');
@@ -128,7 +128,7 @@ class CalendarManagementController extends AbstractModuleController
 	public function editAction(EventSource $eventSource) {
 
        $this->view->assign( 'language', \Lsascha\FullCalendar\Controller\StandardController::getLanguage() );
-		
+
 		//$csrf = $this->securityContext->getCsrfProtectionToken();
 		//$this->view->assign('csrf', $csrf);
 
@@ -210,7 +210,7 @@ class CalendarManagementController extends AbstractModuleController
         }
         $this->eventRepository->add($event);
 
-        
+
         $this->view->assign('return', 1 );
 
     }

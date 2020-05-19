@@ -5,7 +5,7 @@
     <script type="text/javascript" src="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.js', package:'Lsascha.FullCalendar')}"></script>
     <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
     <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.structure.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
-    
+
     <h2>Edit Calendar "{eventSource.title}"</h2>
 
     <div class="neos-row-fluid">
@@ -269,7 +269,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'addEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'addEvent', format:'json', useParentRequest:0)}",
 
                                 <![CDATA[
                                 data: {
@@ -394,7 +394,7 @@
                                 $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
                                 $('#calendar').fullCalendar( 'gotoDate', date );
                                 //alert('Clicked on: ' + date.format());
-                            
+
                             <![CDATA[
                             }
                             ]]>
@@ -412,8 +412,8 @@
                                 googleCalendarId: '{eventSource.googleCalendarId}',
                                 </f:then>
                                 <f:else>
-                                    url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
-                                    type: 'POST',
+                                    url: "{f:uri.action(action:'index', controller:'EventSource', format:'json', useParentRequest:0)}", // use the `url` property
+                                    type: 'GET',
                                     <![CDATA[
                                     data: {
                                     ]]>
@@ -456,7 +456,7 @@
             </script>
         </f:defaultCase>
     </f:switch>
-    
+
 
     <style type="text/css">
         #loading {
@@ -529,13 +529,13 @@
            color: lightgrey;
         }
         #external-events .fc-event input:-moz-placeholder { /* Firefox 18- */
-           color: lightgrey;  
+           color: lightgrey;
         }
         #external-events .fc-event input::-moz-placeholder {  /* Firefox 19+ */
-           color: lightgrey;  
+           color: lightgrey;
         }
-        #external-events .fc-event input:-ms-input-placeholder {  
-           color: lightgrey;  
+        #external-events .fc-event input:-ms-input-placeholder {
+           color: lightgrey;
         }
 
         #external-events #removeevent {
@@ -552,7 +552,7 @@
 
         }
         #external-events #removeevent i {
-            
+
             font-size: 1.85em;
             line-height: 0.1;
         }
