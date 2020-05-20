@@ -5,7 +5,7 @@
     "keywords": ["neos","flow","calendar"],
     "homepage": "https://github.com/lsascha/full-calendar/",
     "require": {
-        "neos/flow": "*"
+        "neos/flow": "6.* || dev-master"
     },
     "name": "lsascha/fullcalendar",
     "autoload": {
@@ -24,5 +24,8 @@
             "email": "lsascha@gmail.com",
             "role": "Developer"
         }
-    ]
+    ],
+    "support": {
+        "issues": "https://github.com/lsascha/full-calendar/issues"
+    }
 }

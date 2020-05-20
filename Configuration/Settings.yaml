@@ -3,7 +3,7 @@ Lsascha:
     # module widget setup
     moduleConfiguration:
       widgetTemplatePathAndFileName: 'resource://Neos.Neos/Private/Templates/Module/Widget.html'
-      
+
     # Calendar plugin configuration
     googleCalendarApiKey: ~
     language: 'all'
@@ -26,11 +26,6 @@ Lsascha:
 # Backend modules configuration
 Neos:
   Neos:
-
-    mvc:
-      routes:
-        'Lsascha.FullCalendar': TRUE
-
     fusion:
       autoInclude:
         'Lsascha.FullCalendar': TRUE
@@ -45,3 +40,7 @@ Neos:
             controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
             description: 'Provides administration tools for maintaining calendars.'
             privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+  Flow:
+    mvc:
+      routes:
+        'Lsascha.FullCalendar': TRUE

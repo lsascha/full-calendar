@@ -269,8 +269,10 @@ class CalendarManagementController extends AbstractModuleController
      * @return void
      */
     public function editEventFormAction(Event $event = null) {
-        if (($event === null) && $this->request->getParentRequest()->hasArgument("event")) {
-            $event = $this->request->getParentRequest()->getArgument("event");
+        if ($this->request->getParentRequest() !== null) {
+            if (($event === null) && $this->request->getParentRequest()->hasArgument("event")) {
+                $event = $this->request->getParentRequest()->getArgument("event");
+            }
         }
         $this->view->assign('event', $event);
     }

@@ -1,7 +1,9 @@
 privilegeTargets:
   Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
     'Lsascha.FullCalendar:EventSourceControllerActions':
-      matcher: 'method(Lsascha\FullCalendar\Controller\(EventSource|Standard)Controller->(index|pageEvents|pluginIndex)Action())'
+      matcher: 'method(Lsascha\FullCalendar\Controller\EventSourceController->(index|pageEvents)Action())'
+    'Lsascha.FullCalendar:FrontendControllerActions':
+      matcher: 'method(Lsascha\FullCalendar\Controller\StandardController->(index|pluginIndex)Action())'
     'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions':
       matcher: 'method(Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController->(index|new|create|edit|update|delete|addEvent|updateEvent|editEventForm|saveEventForm|deleteEventForm)Action())'
 
@@ -15,12 +17,12 @@ roles:
       -
         privilegeTarget: 'Lsascha.FullCalendar:EventSourceControllerActions'
         permission: GRANT
+      -
+        privilegeTarget: 'Lsascha.FullCalendar:FrontendControllerActions'
+        permission: GRANT
 
   'Lsascha.FullCalendar:CalendarAdmin':
     privileges:
-      -
-        privilegeTarget: 'Lsascha.FullCalendar:EventSourceControllerActions'
-        permission: GRANT
       -
         privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
         permission: GRANT

@@ -106,10 +106,8 @@ class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
         {
             return 'en-gb';
         }
-        else
-        {
-            return $calendarLanguages[$fittingLang];
-        }
+
+        return $calendarLanguages[$fittingLang];
 
     }
 
@@ -153,7 +151,7 @@ class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
 
         $sources = $this->request->getInternalArgument('__sources');
         $defaultview = $this->request->getInternalArgument('__defaultview');
-        $nowindicator = $this->request->getInternalArgument('__nowindicator');
+        $nowindicator = $this->request->getInternalArgument('__nowindicator') ?: false;
         $headerLeft = $this->request->getInternalArgument('__headerLeft');
         $headerCenter = $this->request->getInternalArgument('__headerCenter');
         $headerRight = $this->request->getInternalArgument('__headerRight');

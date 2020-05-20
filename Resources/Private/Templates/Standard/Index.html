@@ -2,11 +2,11 @@
 
 <f:section name="Content">
 
-    <f:render partial="../Templates/Standard/Partials/Scripts/Styles" />
-    <f:render partial="../Templates/Standard/Partials/Scripts/Moment" />
-    <f:render partial="../Templates/Standard/Partials/Scripts/Jquery" />
-    <f:render partial="../Templates/Standard/Partials/Scripts/Main" />
-    <f:render partial="../Templates/Standard/Partials/Scripts/CalendarLanguage" arguments="{lang:settings.language}" />
+    <f:render partial="Resources/Styles" />
+    <f:render partial="Resources/Moment" />
+    <f:render partial="Resources/Jquery" />
+    <f:render partial="Resources/Main" />
+    <f:render partial="Resources/CalendarLanguage" arguments="{lang:settings.language}" />
 
 	<div id='loading'>loading...</div>
 
@@ -114,7 +114,7 @@
 		<![CDATA[
 		});
 		]]>
-    
+
     </script>
 	<style>
 

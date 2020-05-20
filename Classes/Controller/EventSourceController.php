@@ -60,11 +60,13 @@ class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
      */
     public function indexAction(EventSource $eventSource, $start = null, $end = null)
     {
-        if (($start === null) && $this->request->getParentRequest()->hasArgument("start")) {
-            $start = $this->request->getParentRequest()->getArgument("start");
-        }
-        if (($end === null) && $this->request->getParentRequest()->hasArgument("start")) {
-            $end = $this->request->getParentRequest()->getArgument("end");
+        if ($this->request->getParentRequest() !== null) {
+            if (($start === null) && $this->request->getParentRequest()->hasArgument("start")) {
+                $start = $this->request->getParentRequest()->getArgument("start");
+            }
+            if (($end === null) && $this->request->getParentRequest()->hasArgument("start")) {
+                $end = $this->request->getParentRequest()->getArgument("end");
+            }
         }
         if ( method_exists($this->view, 'setVariablesToRender') ) {
             $this->view->setVariablesToRender(array('events' ));

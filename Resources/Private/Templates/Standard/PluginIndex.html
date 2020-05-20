@@ -4,7 +4,14 @@
 
 <f:section name="Content">
 
-	<div id="loading-{identifier}" class="lsaschafullcalendarloading">loading...</div>
+    <!-- workaround -->
+    <f:render partial="Resources/Styles" />
+    <f:render partial="Resources/Moment" />
+    <f:render partial="Resources/Jquery" />
+    <f:render partial="Resources/Main" />
+    <f:render partial="Resources/CalendarLanguage" arguments="{lang:settings.language}" />
+
+    <div id="loading-{identifier}" class="lsaschafullcalendarloading">loading...</div>
 
     <div id="calendar-{identifier}" class="lsaschafullcalendar"><f:if condition="{neos:rendering.inBackend(node:node)}">full calendar plugin</f:if></div>
 
@@ -123,6 +130,11 @@
 		});
 		]]>
 
+        if (typeof calendarInits !== 'undefined') {
+            for (i = 0; i < calendarInits.length; i++) {
+                calendarInits[i]();
+            }
+        }
 	    </script>
     </f:if>
 

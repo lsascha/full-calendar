@@ -375,7 +375,7 @@
                         eventClick: function(event, jsEvent, view) {
                         ]]>
 
-                            window.open("{f:uri.action(action:'editEventForm', useParentRequest:0) -> f:format.raw()}?moduleArguments[event]="+event.id, "", "width=550,height=620");
+                            window.open("{f:uri.action(action:'editEventForm', useParentRequest:0) -> f:format.raw()}&moduleArguments[event]="+event.id, "", "width=550,height=620");
                             //window.open(event.id);
                             return false;
 

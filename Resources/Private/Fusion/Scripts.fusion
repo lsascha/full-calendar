@@ -1,37 +1,56 @@
 
 prototype(Lsascha.FullCalendar:CalendarScripts) < prototype(Neos.Fusion:Template) {
 	templatePath = 'resource://Lsascha.FullCalendar/Private/Templates/Standard/Scripts.html'
+    partialRootPath = 'resource://Lsascha.FullCalendar/Private/Partials/'
 	@if.onlyRenderWhenInLiveWorkspace = ${documentNode.context.live}
+    @if.contentIsPresent = ${q(documentNode).children('[instanceof Neos.Neos:ContentCollection]').find('[instanceof Lsascha.FullCalendar:Calendar]').is()}
 }
 
 prototype(Neos.Neos:Page) {
+/*
+    CalendarCss = Neos.Fusion:Tag {
+        @position = 'before stylesheets'
+        tagName = 'link'
+        attributes {
+            media = 'all'
+            rel = 'stylesheet'
+            href = Neos.Fusion:ResourceUri {
+                path = 'resource://Lsascha.FullCalendar/Public/fullcalendar/fullcalendar.min.css'
+            }
+        }
+    }
+    CalendarCss.@if.contentIsPresent = ${q(documentNode).children('[instanceof Neos.Neos:ContentCollection]').find('[instanceof Lsascha.FullCalendar:Calendar]').is()}
+*/
 
-	calendarcss = Lsascha.FullCalendar:CalendarScripts {
+    body.test = "BLABLABLA"
+
+    body.stylesheets.calendarcss = Lsascha.FullCalendar:CalendarScripts {
 		@position = 'before closingBodyTag'
 		sectionName = 'calendarCss'
 	}
 
-	calendarJSJqRequirement = Lsascha.FullCalendar:CalendarScripts {
-		@position = 'before closingBodyTag'
+    body.javascripts.calendarJSJqRequirement = Lsascha.FullCalendar:CalendarScripts {
+		@position = 'end'
 		sectionName = 'calendarJSJqRequirement'
 	}
-	calendarJSJquery = Lsascha.FullCalendar:CalendarScripts {
-		@position = 'before closingBodyTag'
+    body.javascripts.calendarJSJquery = Lsascha.FullCalendar:CalendarScripts {
+		@position = 'end'
 		sectionName = 'calendarJSJquery'
 	}
-	calendarJSmain = Lsascha.FullCalendar:CalendarScripts {
-		@position = 'before closingBodyTag'
+    body.javascripts.calendarJSmain = Lsascha.FullCalendar:CalendarScripts {
+		@position = 'end'
 		sectionName = 'calendarJSmain'
 	}
-	calendarJSlang = Lsascha.FullCalendar:CalendarScripts {
-		@position = 'before closingBodyTag'
+    body.javascripts.calendarJSlang = Lsascha.FullCalendar:CalendarScripts {
+		@position = 'end'
 		sectionName = 'calendarJSlang'
-		
+
 		lang = 'all'
 	}
-	calendarJSinit = Lsascha.FullCalendar:CalendarScripts {
-		@position = 'before closingBodyTag'
+    body.javascripts.calendarJSinit = Lsascha.FullCalendar:CalendarScripts {
+		@position = 'end'
 		sectionName = 'calendarInit'
 	}
 
 }
+
