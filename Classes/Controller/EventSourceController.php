@@ -104,6 +104,11 @@ class EventSourceController extends \Neos\Flow\Mvc\Controller\ActionController
      */
     public function pageEventsAction($path)
     {
+        if ($this->request->getParentRequest() !== null) {
+            if (($path === null) && $this->request->getParentRequest()->hasArgument("path")) {
+                $path = $this->request->getParentRequest()->getArgument("path");
+            }
+        }
 
         $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
 

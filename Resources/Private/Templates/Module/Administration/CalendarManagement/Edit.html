@@ -128,10 +128,12 @@
                             eventSources: [
                                 {
                                     url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', format:'json', useParentRequest:0) -> f:format.raw()}<![CDATA[",
-                                    type: 'POST',
+                                    type: 'GET',
 
                                     data: {
-                                        path: ']]>{eventSource.pageSource}<![CDATA['
+                                        moduleArguments: {
+                                            path: ']]>{eventSource.pageSource}<![CDATA['
+                                        },
                                     },
 
                                     color: ']]>{eventSource.color}<![CDATA[',   // a non-ajax option
