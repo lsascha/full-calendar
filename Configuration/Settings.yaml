@@ -12,9 +12,12 @@ Lsascha:
     standaloneCalendar:
       # set to Object Identifiers that should be used as event sources. for example: ['aa-bb-cc-dd-ee', 'ff-gg-hh-ii-jj']
       eventSources: ~
-      # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek' or 'basicDay'
+      # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek', 'basicDay', 'listDay', 'listWeek', 'listMonth', 'listYear' or 'list'
       defaultView: 'month'
-      nowIndicator: TRUE
+      nowIndicator: true
+      weekNumbersWithinDays: true
+      columnHeader: true
+      weekNumbers: true
       # see http://fullcalendar.io/docs/display/header/ for more info
       header:
         left: 'prev,next today'

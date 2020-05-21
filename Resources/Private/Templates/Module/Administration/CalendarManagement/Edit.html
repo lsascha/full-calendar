@@ -61,10 +61,10 @@
     <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.css')}" rel="stylesheet" />
     <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.print.css')}" rel="stylesheet" media="print" />
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/moment.min.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/sl/jquery-ui.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/jquery-ui.min.js')}"></script>
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang-all.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/locale-all.js')}"></script>
 
 
 
@@ -75,11 +75,11 @@
                 <![CDATA[
                     $(document).ready(function() {
                         $('#calendar').fullCalendar({
-                            lang: 'de',
+                            locale: 'en',
                             header: {
                                 left: 'prev,next today',
                                 center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
+                                right: 'month,agendaWeek,agendaDay,list'
                             },
                             googleCalendarApiKey: ']]>{settings.googleCalendarApiKey}<![CDATA[',
                             editable: false,
@@ -116,11 +116,11 @@
                 <![CDATA[
                     $(document).ready(function() {
                         $('#calendar').fullCalendar({
-                            lang: 'de',
+                            locale: 'en',
                             header: {
                                 left: 'prev,next today',
                                 center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
+                                right: 'month,agendaWeek,agendaDay,list'
                             },
                             editable: false,
                             weekNumbers: true,
@@ -232,14 +232,14 @@
                 $(document).ready(function() {
                     $('#calendar').fullCalendar({
                     ]]>
-                        lang: 'de',
+                        locale: 'en',
 
                         <![CDATA[
                         header: {
                         ]]>
                             left: 'prev,next today',
                             center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
+                            right: 'month,agendaWeek,agendaDay,list'
                         <![CDATA[
                         },
                         ]]>
@@ -527,6 +527,7 @@
             height: 100%;
             padding: 5px 5px;
             border: none;
+            color: #fff;
         }
 
         #external-events .fc-event input::-webkit-input-placeholder {

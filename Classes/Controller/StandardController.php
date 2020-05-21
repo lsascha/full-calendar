@@ -152,6 +152,9 @@ class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
         $sources = $this->request->getInternalArgument('__sources');
         $defaultview = $this->request->getInternalArgument('__defaultview');
         $nowindicator = $this->request->getInternalArgument('__nowindicator') ?: false;
+        $weekNumbersWithinDays = $this->request->getInternalArgument('__weekNumbersWithinDays') ?: false;
+        $columnHeader = $this->request->getInternalArgument('__columnHeader') ?: false;
+        $weekNumbers = $this->request->getInternalArgument('__weekNumbers') ?: false;
         $headerLeft = $this->request->getInternalArgument('__headerLeft');
         $headerCenter = $this->request->getInternalArgument('__headerCenter');
         $headerRight = $this->request->getInternalArgument('__headerRight');
@@ -159,6 +162,9 @@ class StandardController extends \Neos\Flow\Mvc\Controller\ActionController
         $this->view->assign('eventSources', $this->eventSourceRepository->findAllByIds($sources) );
         $this->view->assign('defaultview', $defaultview );
         $this->view->assign('nowIndicator', $nowindicator );
+        $this->view->assign('weekNumbersWithinDays', $weekNumbersWithinDays );
+        $this->view->assign('columnHeader', $columnHeader );
+        $this->view->assign('weekNumbers', $weekNumbers );
         $this->view->assign('headerLeft', $headerLeft );
         $this->view->assign('headerCenter', $headerCenter );
         $this->view->assign('headerRight', $headerRight );

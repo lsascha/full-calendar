@@ -17,10 +17,13 @@
 		jQuery(document).ready(function() {
 	    	jQuery('#calendar').fullCalendar({
     		]]>
-            	lang: '{language}',
+                locale: '{language}',
 
 	        	defaultView: '{settings.standaloneCalendar.defaultView}',
 	        	nowIndicator: '{settings.standaloneCalendar.nowIndicator}',
+                weekNumbersWithinDays: '{settings.standaloneCalendar.weekNumbersWithinDays}',
+                columnHeader: '{settings.standaloneCalendar.columnHeader}',
+                weekNumbers: '{settings.standaloneCalendar.weekNumbers}',
 
             	<![CDATA[
 				header: {
@@ -36,7 +39,6 @@
 				</f:if>
 
 				editable: false,
-				weekNumbers: true,
 				eventLimit: true, // allow "more" link when too many events
 			    eventSources: [
 			    	<f:for each="{eventSources}" as="eventSource">

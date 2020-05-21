@@ -1,8 +1,8 @@
 <f:if condition="{lang} == 'all'">
 	<f:then>
-		<script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang-all.js', package:'Lsascha.FullCalendar')}"></script>
+		<script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/locale-all.js', package:'Lsascha.FullCalendar')}"></script>
 	</f:then>
 	<f:else>
-		<script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang/{lang}.js', package:'Lsascha.FullCalendar')}"></script>
+		<script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/locale/{lang}.js', package:'Lsascha.FullCalendar')}"></script>
 	</f:else>
 </f:if>

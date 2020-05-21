@@ -31,10 +31,13 @@
 
 	    	jQuery('#calendar-'+idIdentifier).fullCalendar({
 			]]>
-	        	lang: '{language}',
+                locale: '{language}',
 
 	        	defaultView: '{defaultview}',
 	        	nowIndicator: '{nowIndicator}',
+                weekNumbersWithinDays: '{weekNumbersWithinDays}',
+                columnHeader: '{columnHeader}',
+                weekNumbers: '{weekNumbers}',
 
 	        	<![CDATA[
 				header: {
@@ -50,7 +53,6 @@
 				</f:if>
 
 				editable: false,
-				weekNumbers: true,
 				eventLimit: true, // allow "more" link when too many events
 			    eventSources: [
 			    	<f:for each="{eventSources}" as="eventSource">

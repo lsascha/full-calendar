@@ -43,17 +43,48 @@
               month:
                 label: 'month'
               agendaWeek:
-                label: 'agenda week'
+                label: 'agenda Week'
               agendaDay:
-                label: 'agenda day'
+                label: 'agenda Day'
+              listDay:
+                label: 'list Day'
+              listWeek:
+                label: 'list Week'
+              listMonth:
+                label: 'list Month'
+              listYear:
+                label: 'list Year'
+              list:
+                label: 'list'
               basicWeek:
-                label: 'basic week'
+                label: 'basic Week'
               basicDay:
-                label: 'basic day'
+                label: 'basic Day'
     'nowindicator':
       type: boolean
       ui:
         label: 'Display Now Indicator'
+        inspector:
+          group: 'options'
+    'weekNumbersWithinDays':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Week Numbers within Days'
+        inspector:
+          group: 'options'
+    'columnHeader':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Column Header'
+        inspector:
+          group: 'options'
+    'weekNumbers':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Week Numbers'
         inspector:
           group: 'options'
     'headerLeft':

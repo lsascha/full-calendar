@@ -8,6 +8,9 @@ prototype(Lsascha.FullCalendar:Calendar) {
     sources = ${q(node).property('sources')}
     defaultview = ${q(node).property('defaultview')}
     nowindicator = ${q(node).property('nowindicator')}
+    weekNumbersWithinDays = ${q(node).property('weekNumbersWithinDays')}
+    columnHeader = ${q(node).property('columnHeader')}
+    weekNumbers = ${q(node).property('weekNumbers')}
     headerLeft = ${q(node).property('headerLeft')}
     headerCenter = ${q(node).property('headerCenter')}
     headerRight = ${q(node).property('headerRight')}
