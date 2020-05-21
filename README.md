@@ -1,9 +1,16 @@
 # full-calendar
 full calendar implementation package for Flow / Neos CMS
+
 ![](example-ani.gif)
 
 ## Installation
-`composer require lsascha/fullcalendar`
+Install using Composer:
+
+    composer require lsascha/fullcalendar
+
+Run doctrine migrations:
+
+    ./flow doctrine:migrate
 
 ## Features
 
