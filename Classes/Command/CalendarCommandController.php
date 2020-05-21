@@ -32,9 +32,7 @@ class CalendarCommandController extends \Neos\Flow\Cli\CommandController
     protected $eventRepository;
 
     /**
-     * remove all persons from database
-     *
-     * removes all person entries
+     * remove all event sources and events from database
      *
      * @return void
      */
@@ -44,7 +42,7 @@ class CalendarCommandController extends \Neos\Flow\Cli\CommandController
         $this->eventSourceRepository->removeAll();
     }
 
-    
+
     /**
      * add source
      *
@@ -85,7 +83,7 @@ class CalendarCommandController extends \Neos\Flow\Cli\CommandController
         $this->eventSourceRepository->add($eventSource);
 
     }
-    
+
     /**
      * add event for source
      *
@@ -122,9 +120,6 @@ class CalendarCommandController extends \Neos\Flow\Cli\CommandController
             $event->setEnd( $event->getStart() );
         }
         $this->eventRepository->add($event);
-
-        //$eventSource->addEvent($event);
-
     }
 
 }

@@ -22,8 +22,6 @@ prototype(Neos.Neos:Page) {
     CalendarCss.@if.contentIsPresent = ${q(documentNode).children('[instanceof Neos.Neos:ContentCollection]').find('[instanceof Lsascha.FullCalendar:Calendar]').is()}
 */
 
-    body.test = "BLABLABLA"
-
     body.stylesheets.calendarcss = Lsascha.FullCalendar:CalendarScripts {
 		@position = 'before closingBodyTag'
 		sectionName = 'calendarCss'

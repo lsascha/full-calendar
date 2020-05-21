@@ -9,9 +9,6 @@ use Neos\Flow\Persistence\PersistenceManagerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use Lsascha\FullCalendar\Domain\Model\EventSource;
-use Lsascha\FullCalendar\Domain\Model\Event;
-
 use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -242,7 +239,7 @@ class EventSource
 
     /**
      * add a event
-     * 
+     *
      * @param Event $event
      * @return void
      */
@@ -253,7 +250,7 @@ class EventSource
 
     /**
      * remove a event
-     * 
+     *
      * @param Event $event
      * @return void
      */
