@@ -1,5 +1,6 @@
 # full-calendar
-full calendar implementation package for Flow / Neos
+full calendar implementation package for Flow / Neos CMS
+![](example-ani.gif)
 
 ## Installation
 `composer require lsascha/fullcalendar`
@@ -20,7 +21,7 @@ Event Sources and Events can be added per CLI command. see `./flow help calendar
 
 ### In Neos CMS
 Installed into a Neos CMS Installation it adds a Plugin, Page-Types and a Backend Module.
-Give the Backend User who should Edit Events the CalendarAdmin Role (`Lsascha.FullCalendar:CalendarAdmin`).
+Give the Backend User who should Edit Events the `CalendarAdmin` Role (`Lsascha.FullCalendar:CalendarAdmin`).
 
 The Backend User should then See a new Backend Module named `Calendar` under `Management`.
 
