@@ -1,7 +1,7 @@
 # Full Calendar plugin
 'Lsascha.FullCalendar:Calendar':
   superTypes:
-    - 'TYPO3.Neos:Plugin'
+    - 'Neos.Neos:Plugin'
   ui:
     label: 'Full Calendar'
     icon: 'icon-calendar'
@@ -19,7 +19,7 @@
         reloadIfChanged: FALSE
         inspector:
           group: 'options'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
           editorOptions:
             allowEmpty: TRUE
             multiple: TRUE
@@ -34,7 +34,7 @@
         reloadIfChanged: FALSE
         inspector:
           group: 'options'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
           editorOptions:
             allowEmpty: FALSE
             multiple: FALSE
@@ -43,17 +43,48 @@
               month:
                 label: 'month'
               agendaWeek:
-                label: 'agenda week'
+                label: 'agenda Week'
               agendaDay:
-                label: 'agenda day'
+                label: 'agenda Day'
+              listDay:
+                label: 'list Day'
+              listWeek:
+                label: 'list Week'
+              listMonth:
+                label: 'list Month'
+              listYear:
+                label: 'list Year'
+              list:
+                label: 'list'
               basicWeek:
-                label: 'basic week'
+                label: 'basic Week'
               basicDay:
-                label: 'basic day'
+                label: 'basic Day'
     'nowindicator':
       type: boolean
       ui:
         label: 'Display Now Indicator'
+        inspector:
+          group: 'options'
+    'weekNumbersWithinDays':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Week Numbers within Days'
+        inspector:
+          group: 'options'
+    'columnHeader':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Column Header'
+        inspector:
+          group: 'options'
+    'weekNumbers':
+      type: boolean
+      defaultValue: true
+      ui:
+        label: 'Display Week Numbers'
         inspector:
           group: 'options'
     'headerLeft':
@@ -86,7 +117,7 @@
 
 'Lsascha.FullCalendar:EventSource':
   superTypes:
-    'TYPO3.Neos:Document': TRUE
+    'Neos.Neos:Document': TRUE
   ui:
     label: 'Calendar'
     icon: 'icon-calendar'
@@ -104,7 +135,7 @@
         label: 'rendering'
         inspector:
           group: 'data'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
           editorOptions:
             allowEmpty: TRUE
             placeholder: 'Select Rendering'
@@ -146,7 +177,7 @@
 
 'Lsascha.FullCalendar:Event':
   superTypes:
-    'TYPO3.Neos:Document': TRUE
+    'Neos.Neos:Document': TRUE
   ui:
     label: 'Event'
     icon: 'icon-calendar-check-o'
@@ -162,7 +193,7 @@
           tab: 'data'
   childNodes:
     main:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   properties:
     allDay:
       type: boolean
@@ -198,7 +229,7 @@
         inspector:
           group: 'detail'
           position: 25
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
           editorOptions:
             allowEmpty: TRUE
             placeholder: 'Select Rendering'

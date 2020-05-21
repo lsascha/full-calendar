@@ -5,12 +5,12 @@
     "keywords": ["neos","flow","calendar"],
     "homepage": "https://github.com/lsascha/full-calendar/",
     "require": {
-        "typo3/flow": "*"
+        "neos/flow": "6.* || dev-master"
     },
     "name": "lsascha/fullcalendar",
     "autoload": {
-        "psr-0": {
-            "Lsascha\\FullCalendar": "Classes/"
+        "psr-4": {
+            "Lsascha\\FullCalendar\\": "Classes/"
         }
     },
     "extra": {
@@ -24,5 +24,8 @@
             "email": "lsascha@gmail.com",
             "role": "Developer"
         }
-    ]
+    ],
+    "support": {
+        "issues": "https://github.com/lsascha/full-calendar/issues"
+    }
 }

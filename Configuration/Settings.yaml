@@ -2,8 +2,8 @@ Lsascha:
   FullCalendar:
     # module widget setup
     moduleConfiguration:
-      widgetTemplatePathAndFileName: 'resource://TYPO3.Neos/Private/Templates/Module/Widget.html'
-      
+      widgetTemplatePathAndFileName: 'resource://Neos.Neos/Private/Templates/Module/Widget.html'
+
     # Calendar plugin configuration
     googleCalendarApiKey: ~
     language: 'all'
@@ -12,9 +12,12 @@ Lsascha:
     standaloneCalendar:
       # set to Object Identifiers that should be used as event sources. for example: ['aa-bb-cc-dd-ee', 'ff-gg-hh-ii-jj']
       eventSources: ~
-      # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek' or 'basicDay'
+      # default view can be 'month', 'agendaWeek', 'agendaDay', 'basicWeek', 'basicDay', 'listDay', 'listWeek', 'listMonth', 'listYear' or 'list'
       defaultView: 'month'
-      nowIndicator: TRUE
+      nowIndicator: true
+      weekNumbersWithinDays: true
+      columnHeader: true
+      weekNumbers: true
       # see http://fullcalendar.io/docs/display/header/ for more info
       header:
         left: 'prev,next today'
@@ -24,24 +27,23 @@ Lsascha:
 
 
 # Backend modules configuration
-TYPO3:
+Neos:
   Neos:
-
-    typoScript:
+    fusion:
       autoInclude:
         'Lsascha.FullCalendar': TRUE
 
     modules:
-      calendarAdministration:
-        label: 'Calendar Administration'
-        controller: '\Lsascha\FullCalendar\Controller\Module\CalendarAdministrationController'
-        description: 'administrate calendars'
-        icon: 'icon-calendar'
-        privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+      management:
         submodules:
-          lsaschaCalendarManagement:
-            label: 'Calendar Management'
+          calendarAdministration:
+            label: 'Calendar'
             icon: 'icon-calendar'
+            mainStylesheet: 'Lite'
             controller: '\Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController'
             description: 'Provides administration tools for maintaining calendars.'
             privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+  Flow:
+    mvc:
+      routes:
+        'Lsascha.FullCalendar': TRUE

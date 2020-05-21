@@ -1,0 +1,25 @@
+prototype(Lsascha.FullCalendar:Event) >
+prototype(Lsascha.FullCalendar:Event) < prototype(Neos.Neos:Page)
+prototype(Lsascha.FullCalendar:Event) {
+
+	#start = ${ Date.format( q(node).property('end'), 'd.m' ) }
+	#end = ${ Date.format( q(node).property('end'), 'd.m' ) }
+
+	body {
+    	templatePath = 'resource://Lsascha.FullCalendar/Private/Templates/Page/Event.html'
+		sectionName = 'body'
+		content {
+			main = Neos.Neos:PrimaryContent
+			main {
+				nodePath = 'main'
+			}
+		}
+
+		title = ${q(node).property('title')}
+		start = ${q(node).property('start')}
+		end = ${q(node).property('end')}
+		allDay = ${q(node).property('allDay')}
+		rendering = ${q(node).property('rendering')}
+
+	}
+}

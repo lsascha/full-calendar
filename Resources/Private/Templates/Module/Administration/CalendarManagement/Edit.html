@@ -1,11 +1,11 @@
-{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace neos=Neos\Neos\ViewHelpers}
 <f:layout name="BackendSubModule"/>
 
 <f:section name="content">
     <script type="text/javascript" src="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.js', package:'Lsascha.FullCalendar')}"></script>
     <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
     <link href="{f:uri.resource(path: 'JavaScript/lib/jquery-ui/jquery-ui.structure.min.css', package:'Lsascha.FullCalendar')}" rel="stylesheet" />
-    
+
     <h2>Edit Calendar "{eventSource.title}"</h2>
 
     <div class="neos-row-fluid">
@@ -61,10 +61,10 @@
     <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.css')}" rel="stylesheet" />
     <link href="{f:uri.resource(path: 'fullcalendar/fullcalendar.print.css')}" rel="stylesheet" media="print" />
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/moment.min.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/sl/jquery-ui.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lib/jquery-ui.min.js')}"></script>
     <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/fullcalendar.min.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/lang-all.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/gcal.min.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(path: 'fullcalendar/locale-all.js')}"></script>
 
 
 
@@ -75,11 +75,11 @@
                 <![CDATA[
                     $(document).ready(function() {
                         $('#calendar').fullCalendar({
-                            lang: 'de',
+                            locale: 'en',
                             header: {
                                 left: 'prev,next today',
                                 center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
+                                right: 'month,agendaWeek,agendaDay,list'
                             },
                             googleCalendarApiKey: ']]>{settings.googleCalendarApiKey}<![CDATA[',
                             editable: false,
@@ -116,22 +116,24 @@
                 <![CDATA[
                     $(document).ready(function() {
                         $('#calendar').fullCalendar({
-                            lang: 'de',
+                            locale: 'en',
                             header: {
                                 left: 'prev,next today',
                                 center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
+                                right: 'month,agendaWeek,agendaDay,list'
                             },
                             editable: false,
                             weekNumbers: true,
                             eventLimit: true, // allow "more" link when too many events
                             eventSources: [
                                 {
-                                    url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}<![CDATA[",
-                                    type: 'POST',
+                                    url: "]]>{f:uri.action(action:'pageEvents', controller:'EventSource', format:'json', useParentRequest:0) -> f:format.raw()}<![CDATA[",
+                                    type: 'GET',
 
                                     data: {
-                                        path: ']]>{eventSource.pageSource}<![CDATA['
+                                        moduleArguments: {
+                                            path: ']]>{eventSource.pageSource}<![CDATA['
+                                        },
                                     },
 
                                     color: ']]>{eventSource.color}<![CDATA[',   // a non-ajax option
@@ -230,14 +232,14 @@
                 $(document).ready(function() {
                     $('#calendar').fullCalendar({
                     ]]>
-                        lang: 'de',
+                        locale: 'en',
 
                         <![CDATA[
                         header: {
                         ]]>
                             left: 'prev,next today',
                             center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
+                            right: 'month,agendaWeek,agendaDay,list'
                         <![CDATA[
                         },
                         ]]>
@@ -269,7 +271,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'addEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'addEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -303,7 +305,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'updateEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -339,7 +341,7 @@
                             $.ajax({
                             ]]>
                                 type: "POST",
-                                url: "{f:uri.action(action:'updateEvent', controller:'CalendarManagement', package:'Lsascha.FullCalendar', format:'json', useParentRequest:0)}",
+                                url: "{f:uri.action(action:'updateEvent', format:'json', useParentRequest:0) -> f:format.raw()}",
 
                                 <![CDATA[
                                 data: {
@@ -375,7 +377,7 @@
                         eventClick: function(event, jsEvent, view) {
                         ]]>
 
-                            window.open("{f:uri.action(action:'editEventForm', controller:'CalendarManagement', package:'Lsascha.FullCalendar', useParentRequest:0)}?moduleArguments[event]="+event.id, "", "width=550,height=620");
+                            window.open("{f:uri.action(action:'editEventForm', useParentRequest:0) -> f:format.raw()}&moduleArguments[event]="+event.id, "", "width=550,height=620");
                             //window.open(event.id);
                             return false;
 
@@ -394,7 +396,7 @@
                                 $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
                                 $('#calendar').fullCalendar( 'gotoDate', date );
                                 //alert('Clicked on: ' + date.format());
-                            
+
                             <![CDATA[
                             }
                             ]]>
@@ -412,13 +414,15 @@
                                 googleCalendarId: '{eventSource.googleCalendarId}',
                                 </f:then>
                                 <f:else>
-                                    url: "{f:uri.action(action:'index', controller:'EventSource', package:'Lsascha.FullCalendar', format:'json', useParentRequest:1)}", // use the `url` property
-                                    type: 'POST',
+                                    url: "{f:uri.action(action:'index', controller:'EventSource', format:'json', useParentRequest:0) -> f:format.raw()}", // use the `url` property
+                                    type: 'GET',
                                     <![CDATA[
                                     data: {
+                                        moduleArguments: {
                                     ]]>
                                         eventSource: '{eventSource -> f:format.identifier()}'
                                     <![CDATA[
+                                        },
                                     },
                                     error: function() {
                                         console.log('there was an error while fetching events!');
@@ -456,7 +460,7 @@
             </script>
         </f:defaultCase>
     </f:switch>
-    
+
 
     <style type="text/css">
         #loading {
@@ -523,19 +527,20 @@
             height: 100%;
             padding: 5px 5px;
             border: none;
+            color: #fff;
         }
 
         #external-events .fc-event input::-webkit-input-placeholder {
            color: lightgrey;
         }
         #external-events .fc-event input:-moz-placeholder { /* Firefox 18- */
-           color: lightgrey;  
+           color: lightgrey;
         }
         #external-events .fc-event input::-moz-placeholder {  /* Firefox 19+ */
-           color: lightgrey;  
+           color: lightgrey;
         }
-        #external-events .fc-event input:-ms-input-placeholder {  
-           color: lightgrey;  
+        #external-events .fc-event input:-ms-input-placeholder {
+           color: lightgrey;
         }
 
         #external-events #removeevent {
@@ -552,7 +557,7 @@
 
         }
         #external-events #removeevent i {
-            
+
             font-size: 1.85em;
             line-height: 0.1;
         }

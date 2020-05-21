@@ -1,0 +1,32 @@
+prototype(Lsascha.FullCalendar:Calendar) < prototype(Neos.Neos:Plugin)
+prototype(Lsascha.FullCalendar:Calendar) {
+    # settings = ${Configuration.setting('Lsascha.FullCalendar')}
+	package = 'Lsascha.FullCalendar'
+	controller = 'Standard'
+	action = 'pluginIndex'
+
+    sources = ${q(node).property('sources')}
+    defaultview = ${q(node).property('defaultview')}
+    nowindicator = ${q(node).property('nowindicator')}
+    weekNumbersWithinDays = ${q(node).property('weekNumbersWithinDays')}
+    columnHeader = ${q(node).property('columnHeader')}
+    weekNumbers = ${q(node).property('weekNumbers')}
+    headerLeft = ${q(node).property('headerLeft')}
+    headerCenter = ${q(node).property('headerCenter')}
+    headerRight = ${q(node).property('headerRight')}
+}
+
+include: Scripts.fusion
+include: NodeTypes/*
+
+# document rendering switching
+#prototype(Neos.Neos:PrimaryContent).eventsource {
+root.eventsource {
+	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:EventSource]')}
+	type = 'Lsascha.FullCalendar:EventSource'
+}
+#prototype(Neos.Neos:PrimaryContent).event {
+root.event {
+	condition = ${q(documentNode).is('[instanceof Lsascha.FullCalendar:Event]')}
+	type = 'Lsascha.FullCalendar:Event'
+}

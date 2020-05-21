@@ -8,7 +8,7 @@ namespace Lsascha\FullCalendar\Tests\Unit\Domain\Model;
 /**
  * Testcase for Event source
  */
-class EventSourceTest extends \TYPO3\Flow\Tests\UnitTestCase
+class EventSourceTest extends \Neos\Flow\Tests\UnitTestCase
 {
 
     /**

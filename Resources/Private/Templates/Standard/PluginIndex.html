@@ -1,10 +1,17 @@
-{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace neos=Neos\Neos\ViewHelpers}
 
 <f:layout name="Empty" />
 
 <f:section name="Content">
 
-	<div id="loading-{identifier}" class="lsaschafullcalendarloading">loading...</div>
+    <!-- workaround -->
+    <f:render partial="Resources/Styles" />
+    <f:render partial="Resources/Moment" />
+    <f:render partial="Resources/Jquery" />
+    <f:render partial="Resources/Main" />
+    <f:render partial="Resources/CalendarLanguage" arguments="{lang:settings.language}" />
+
+    <div id="loading-{identifier}" class="lsaschafullcalendarloading">loading...</div>
 
     <div id="calendar-{identifier}" class="lsaschafullcalendar"><f:if condition="{neos:rendering.inBackend(node:node)}">full calendar plugin</f:if></div>
 
@@ -24,10 +31,13 @@
 
 	    	jQuery('#calendar-'+idIdentifier).fullCalendar({
 			]]>
-	        	lang: '{language}',
+                locale: '{language}',
 
 	        	defaultView: '{defaultview}',
 	        	nowIndicator: '{nowIndicator}',
+                weekNumbersWithinDays: '{weekNumbersWithinDays}',
+                columnHeader: '{columnHeader}',
+                weekNumbers: '{weekNumbers}',
 
 	        	<![CDATA[
 				header: {
@@ -43,7 +53,6 @@
 				</f:if>
 
 				editable: false,
-				weekNumbers: true,
 				eventLimit: true, // allow "more" link when too many events
 			    eventSources: [
 			    	<f:for each="{eventSources}" as="eventSource">
@@ -123,6 +132,11 @@
 		});
 		]]>
 
+        if (typeof calendarInits !== 'undefined') {
+            for (i = 0; i < calendarInits.length; i++) {
+                calendarInits[i]();
+            }
+        }
 	    </script>
     </f:if>
 

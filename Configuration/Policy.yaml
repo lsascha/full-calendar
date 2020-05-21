@@ -1,19 +1,31 @@
 privilegeTargets:
-  TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
     'Lsascha.FullCalendar:EventSourceControllerActions':
-      matcher: 'method(Lsascha\FullCalendar\Controller\(EventSource|Standard)Controller->(index|pageEvents|pluginIndex)Action())'
+      matcher: 'method(Lsascha\FullCalendar\Controller\EventSourceController->(index|pageEvents)Action())'
+    'Lsascha.FullCalendar:FrontendControllerActions':
+      matcher: 'method(Lsascha\FullCalendar\Controller\StandardController->(index|pluginIndex)Action())'
     'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions':
-      matcher: 'method(Lsascha\FullCalendar\Controller\Module\Administration\(CalendarManagement)Controller->(index|new|create|edit|update|delete|addEvent|updateEvent|editEventForm|saveEventForm|deleteEventForm)Action()) || method(Lsascha\FullCalendar\Controller\Module\(CalendarAdministration)Controller->(index)Action())'
+      matcher: 'method(Lsascha\FullCalendar\Controller\Module\Administration\CalendarManagementController->(index|new|create|edit|update|delete|addEvent|updateEvent|editEventForm|saveEventForm|deleteEventForm)Action())'
+
+  Neos\Neos\Security\Authorization\Privilege\ModulePrivilege:
+    'Lsascha.FullCalendar:BackendModule':
+      matcher: 'management/calendarAdministration'
 
 roles:
-  'TYPO3.Flow:Everybody':
+  'Neos.Flow:Everybody':
     privileges:
       -
         privilegeTarget: 'Lsascha.FullCalendar:EventSourceControllerActions'
+        permission: GRANT
+      -
+        privilegeTarget: 'Lsascha.FullCalendar:FrontendControllerActions'
         permission: GRANT
 
   'Lsascha.FullCalendar:CalendarAdmin':
     privileges:
       -
         privilegeTarget: 'Lsascha.FullCalendar:AdministrationCalendarManagementControllerActions'
+        permission: GRANT
+      -
+        privilegeTarget: 'Lsascha.FullCalendar:BackendModule'
         permission: GRANT
